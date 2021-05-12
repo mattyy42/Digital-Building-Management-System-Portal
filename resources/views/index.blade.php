@@ -70,10 +70,10 @@
                                  <a class="nav-link" href="#service"> Service</a>
                               </li>
                               <li class="nav-item">
-                                 <a class="nav-link" href="#contact">Contact</a>
+                                 <a class="nav-link" href="{{route('register')}}">Register</a>
                               </li>
                               <li class="nav-item">
-                                 <a class="nav-link" href="#">Sign Up</a>
+                                 <a class="nav-link" href="{{route('login')}}">Login</a>
                               </li>
                            </ul>
                         </div>
