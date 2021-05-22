@@ -10,7 +10,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta name="viewport" content="initial-scale=1, maximum-scale=1">
       <!-- site metas -->
-      <title>Data web</title>
+      <title>DBPMS</title>
       <meta name="keywords" content="">
       <meta name="description" content="">
       <meta name="author" content="">
@@ -48,7 +48,7 @@
                      <div class="full">
                         <div class="center-desk">
                            <div class="logo">
-                              <a href="index.html"><img src="images/logo.png" alt="#" /></a>
+                              <a href="index.html">DBPMS</a>
                            </div>
                         </div>
                      </div>
@@ -91,7 +91,7 @@
             <div class="row d_flex">
                <div class="col-md-5">
                   <div class="text-bg">
-                     <h1>Power ful<br> Web Hosting</h1>
+                     <h1>Digital Building Permit System</h1>
                      <span>Landing Page 2019</span>
                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud </p>
                      <a href="#">Get Started</a>

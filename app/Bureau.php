@@ -4,10 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Role extends Model
+class Bureau extends Model
 {
-    protected $fillable = ['name','user_id'];
+    protected $fillable=['name','user_id'];
+
     public function user(){
         return $this->belongsTo(User::class);
-    } 
+    }
 }

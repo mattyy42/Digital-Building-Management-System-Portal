@@ -18,3 +18,25 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+//admin routes
+
+Route::get('/admin/applicant', 'AdminController@showAllApplicant');
+//admin Building Officer
+Route::get('/admin/addOfficerPage', function () {
+    return view('adminPages.addOfficerPage');
+});
+Route::get('/admin/buildingOfficer', 'AdminController@showAllBuildingOfficer')->name('buildingOfficers');
+Route::post('/admin/registerBuildingOfficer','AdminController@registerBuildingOfficer');
+//admin Board
+Route::get('/admin/addBoardPage',function () {
+    return view('adminPages.addBoardPage');
+});
+Route::get('/admin/board','AdminController@showAllBoard')->name('board');
+Route::post('/admin/registerBoard','AdminController@registerBoard');
+
+
+
+Route::get('/admin/manageUser', function () {
+    return view('adminPages.manageUser');
+});
