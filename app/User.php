@@ -39,7 +39,4 @@ class User extends Authenticatable
     public function role(){
         return $this->hasOne(Role::class);
     }
-    public function bureau(){
-        return $this->hasOne(Bureau::class);
-    }
 }

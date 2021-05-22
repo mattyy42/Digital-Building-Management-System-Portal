@@ -28,13 +28,14 @@ Route::get('/admin/addOfficerPage', function () {
 });
 Route::get('/admin/buildingOfficer', 'AdminController@showAllBuildingOfficer')->name('buildingOfficers');
 Route::post('/admin/registerBuildingOfficer','AdminController@registerBuildingOfficer');
+Route::get('/admin/deleteOfficer/{id}','AdminController@deleteOfficer');
 //admin Board
 Route::get('/admin/addBoardPage',function () {
     return view('adminPages.addBoardPage');
 });
 Route::get('/admin/board','AdminController@showAllBoard')->name('board');
 Route::post('/admin/registerBoard','AdminController@registerBoard');
-
+Route::get('/admin/deleteBoard/{id}','AdminController@deleteBoard');
 
 
 Route::get('/admin/manageUser', function () {

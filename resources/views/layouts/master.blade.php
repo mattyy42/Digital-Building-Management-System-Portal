@@ -220,7 +220,7 @@
             </li>
             @if(auth()->user()->role['name']=='admin')
             <li class="nav-item">
-              <a class="nav-link" href="#" >
+              <a class="nav-link" href="#">
                 <i class="nav-icon fa fa-users"></i>
                 <span>
                   Manage User
@@ -247,24 +247,40 @@
                     <p>Manage Board of Applicance</p>
                   </a>
                 </li>
-                
+
+              </ul>
+            </li>
+            @endif
+            @if(auth()->user()->role['name'] =='applicant')
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fa fa-file"></i>
+                <p>
+                  Application
+                </p>
+                <i class="fas fa-angle-left right"></i>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="/admin/applicant" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Add Application</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="/admin/buildingOfficer" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>View Applications</p>
+                  </a>
+                </li>
               </ul>
             </li>
             @endif
             <li class="nav-item">
-              <a href="patient.html" class="nav-link">
-                <i class="nav-icon fas fa-copy"></i>
-                <p>
-                  Patient
-                </p>
-              </a>
-
-            </li>
-            <li class="nav-item">
               <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-chart-pie"></i>
+                <i class="nav-icon fa fa-user"></i>
                 <p>
-                  Appointment
+                  Profile
                 </p>
               </a>
             </li>

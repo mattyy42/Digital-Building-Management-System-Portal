@@ -1,6 +1,18 @@
 @extends('layouts.master')
 
 @section('dashboard-content')
+@if(session()->has('message'))
+<div class="alert alert-success">
+    <strong>Success!</strong> {{session()->get('message')}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+@elseif(session()->has('error'))
+<div class="alert alert-danger">
+    <strong>failed!</strong> {{session()->get('error')}}
+</div>
+@endif
 <div class="col-md-12">
     <div class="card">
         <div class="card-header">

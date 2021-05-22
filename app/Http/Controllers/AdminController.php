@@ -35,7 +35,8 @@ class AdminController extends Controller
             'phone_number' => 'required',
             'email' => 'required|unique:users|max:255|email',
             'password'=>'required|min:6',
-            'role'=>'required'
+            'role'=>'required',
+            'bureau'=>'required'
         ]);
         $buildingOfficer=User::create([
             'first_name' => $request['first_name'],
@@ -47,10 +48,20 @@ class AdminController extends Controller
         $createrole=Role::create([
             'name'=>$request['role'],
             'user_id' =>$buildingOfficer['id'],
+            'bureau'=>$request['bureau'],
         ]);
         
         return redirect(route('buildingOfficers'));
     }
+    public function deleteOfficer($id){
+        $user=User::findOrFail($id)->delete();
+        $role=Role::where('user_id',$id)->delete();
+        session()->flash('message', 'The Building officer user is deleted successfully');
+        return redirect(route('board'));
+    }
+
+
+
     public function showAllBoard(){
         
         $applicantId = Role::where('name', 'boardOfAppliance')->get();
@@ -69,9 +80,10 @@ class AdminController extends Controller
             'phone_number' => 'required',
             'email' => 'required|unique:users|max:255|email',
             'password'=>'required|min:6',
-            'role'=>'required'
+            'role'=>'required',
+            'bureau'=>'required'
         ]);
-        $buildingOfficer=User::create([
+        $board=User::create([
             'first_name' => $request['first_name'],
             'last_name' => $request['last_name'],
             'phone_number' => $request['phone_number'],
@@ -80,9 +92,17 @@ class AdminController extends Controller
         ]);
         $createrole=Role::create([
             'name'=>$request['role'],
-            'user_id' =>$buildingOfficer['id'],
+            'user_id' =>$board['id'],
+            'bureau'=>$request['bureau'],
         ]);
         
         return redirect(route('board'));
     }
+    public function deleteBoard($id){
+        $user=User::findOrFail($id)->delete();
+        $role=Role::where('user_id',$id)->delete();
+        session()->flash('message', 'The Board of Appliance user is deleted successfully');
+        return redirect(route('board'));
+    }
 }
+

@@ -30,11 +30,15 @@
                 </div>
                 <div class="form-group">
                     <label for="phoneNumber">Phone Number</label>
-                    <input type="number" name="phone_number" class="form-control" id="phoneNumber" placeholder="Phone Number">
+                    <input type="text" name="phone_number" class="form-control" id="phoneNumber" placeholder="Phone Number">
                 </div>
-                <select class="form-control" name="role">
+                <select class="form-control my-4 " name="role">
                     <option>Select Role</option>
                     <option value="buildingOfficer">Board of Appliance</option>
+                </select>
+                <select class="form-control my-4" name="bureau">
+                    <option>Select Bureau</option>
+                    <option value="Addis Ketema">Addis Ketema</option>
                 </select>
             </div>
             <!-- /.card-body -->

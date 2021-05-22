@@ -1,6 +1,18 @@
 @extends('layouts.master')
 
 @section('dashboard-content')
+@if(session()->has('message'))
+<div class="alert alert-success">
+    <strong>Success!</strong> {{session()->get('message')}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+@elseif(session()->has('error'))
+<div class="alert alert-danger">
+    <strong>failed!</strong> {{session()->get('error')}}
+</div>
+@endif
 <div class="col-md-12">
     <div class="card">
         <div class="card-header">
@@ -22,6 +34,7 @@
                 <thead>
                     <tr>
                         <th>Name</th>
+                        <th> Bureau </th>
                         <th>Phone Number</th>
                         <th style="width: 200px">Action</th>
                     </tr>
@@ -30,11 +43,12 @@
                     @foreach($users as $user)
                     <tr>
                         <td>{{$user->first_name}} {{$user->last_name}}</td>
+                       <td>{{$user->role->bureau}}</td>
                         <td>{{$user->phone_number}}</td>
                         <td>
                             <div>
                                 <button class="badge bg-warning">Edit</button>
-                                <button class="badge bg-danger">Delete</button>
+                                <a class="badge bg-danger" href="{{ url('/admin/deleteBoard/'.$user->id)}}">Delete</a>
                             </div>
                         </td>
                     </tr>
