@@ -92,8 +92,9 @@
                <div class="col-md-5">
                   <div class="text-bg">
                      <h1>Digital Building Permit System</h1>
-                     <span>Landing Page 2019</span>
-                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud </p>
+                     <span>Welocome to A.A city Administration Digital building permit system</span>
+                     <p>This journey details the process that a business goes through in order to construct a commercial building premise, ranging from land authentication to acquiring necessary consents and permits, to final inspection once the construction is complete. Government organizations involved in this journey to provide the required services are as follows; Addis Ababa city administration land holding registration and information agency, Addis Ababa city adminstration 
+                     construction permit and control authority and Addis Ababa water and sewerage authority.</p>
                      <a href="#">Get Started</a>
                   </div>
                </div>
@@ -112,7 +113,7 @@
             <div class="row">
                <div class="col-md-12">
                   <div class="titlepage">
-                     <h2>What’s New In Web Hosting</h2>
+                     <h2>Getting Started</h2>
                   </div>
                </div>
             </div>
@@ -120,7 +121,8 @@
                <div class="col-md-12">
                   <div class="web_hosting">
                      <figure><img  src="images/web.jpg" alt="#"/></figure>
-                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate</p>
+                     <p> one-stop portal for e-government services that improves ease of doing business in Ethiopia through
+                      the automation of essential government services leveraging information and communication technologies</p>
                      <a href="#">Read more</a>
                   </div>
                </div>
@@ -134,9 +136,9 @@
             <div class="row">
                <div class="col-md-12">
                   <div class="titlepage">
-                     <h2>Best Services</h2>
-                     <p>Lorem ipsum dolor sittem ametamngcing elit, per sed do eiusmoad <br>
-                        teimpor sittem elit inuning ut sed.
+                     <h2>Process Overview</h2>
+                     <p>Addis Ababa city administration land holding registration and information agency, Addis Ababa city adminstration constru
+                     ction permit and control authority and Addis Ababa water and sewerage authority.
                      </p>
                   </div>
                </div>
@@ -145,25 +147,29 @@
                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
                   <div class="Services-box">
                      <i><img src="images/service1.png" alt="#" /></i>
-                     <h3> Shared Hosting</h3>
-                     <p>Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci.</p>
-                  </div>
+                     <h3> Planning Consent</h3>
+                     <p>Building Permit Department will issue a planning consent if all requirements meet the master plan guidelines.</p> </div>
                </div>
                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
                   <div class="Services-box">
                      <i><img src="images/service2.png" alt="#" /></i>
-                     <h3>Dedicated Hosting</h3>
-                     <p>Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci.</p>
+                     <h3>Land Authentication</h3>
+                     <p>The business representative provides a debt provision document 
+                     to verify that the land is not registered as collateral, and a neighbor c
+                     onsent</p>
+
+</p>
                   </div>
                </div>
                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
                   <div class="Services-box">
                      <i><img src="images/service3.png" alt="#" /></i>
-                     <h3>Domain Registration</h3>
-                     <p>Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci.</p>
+                     <h3>Construction Permit</h3>
+                     <p>In this process, the business representative
+                      or the design consultant submits all the necessary design documents for approval subsequently and once the designs are approved the city</p>
                   </div>
                </div>
-               <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+               <!-- <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
                   <div class="Services-box">
                      <i><img src="images/service4.png" alt="#" /></i>
                      <h3>VPS Hosting</h3>
@@ -184,80 +190,13 @@
                      <p>Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci.</p>
                   </div>
                </div>
-               <a class="read_more" href="#">Read More</a>
-            </div>
+               <a class="read_more" href="#">Read More</a>-->
+            </div> 
          </div>
       </div>
       <!-- end Servicess -->
       <!-- why -->
-      <div id="why" class="why">
-         <div class="container">
-            <div class="row">
-               <div class="col-md-12">
-                  <div class="titlepage">
-                     <h2>Why you should choose </h2>
-                     <p>making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still </p>
-                  </div>
-               </div>
-            </div>
-            <div class="row">
-               <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
-                  <div id="box_ho" class="why-box">
-                     <i><img src="images/why1.png" alt="#" /></i>
-                     <h3>Powerful Features</h3>
-                     <p>making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still </p>
-                  </div>
-                  <a class="read_more bg" href="#">Read More</a>
-               </div>
-               <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
-                  <div class="why-box">
-                     <i><img src="images/why2.png" alt="#" /></i>
-                     <h3>Totaly Optimised</h3>
-                     <p>making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still </p>
-                  </div>
-                  <a class="read_more bg" href="#">Read More</a>
-               </div>
-               <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
-                  <div class="why-box">
-                     <i><img src="images/why3.png" alt="#" /></i>
-                     <h3>Worldwide Support</h3>
-                     <p>making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still </p>
-                  </div>
-                  <a class="read_more bg" href="#">Read More</a>
-               </div>
-            </div>
-         </div>
-      </div>
-      <!-- end why -->
-      <!-- contact -->
-      <div id="contact" class="contact">
-         <div class="container">
-            <div class="row">
-               <div class="col-md-6 offset-md-3 ">
-                  <form class="main_form">
-                     <div class="row">
-                        <div class="col-sm-12">
-                           <input class="contactus" placeholder="Name" type="text" name="Name">
-                        </div>
-                        <div class="col-sm-12">
-                           <input class="contactus" placeholder="Email" type="text" name=" Email">
-                        </div>
-                        <div class="col-sm-12">
-                           <input class="contactus" placeholder="Phone" type="text" name="Phone">
-                        </div>
-                        <div class="col-sm-12">
-                           <textarea class="textarea" placeholder="Message" type="text" name="Message"></textarea>
-                        </div>
-                        <div class="col-sm-12">
-                           <button class="send">Send</button>
-                        </div>
-                     </div>
-                  </form>
-               </div>
-            </div>
-         </div>
-      </div>
-
+      
       <!-- end contact -->
       <!--  footer -->
       <footer>
@@ -267,10 +206,8 @@
                   <div class="col-md-10 offset-md-1">
                      <div class="cont">
                         <h3>Contact now</h3>
-                        <span>Free Multipurpose Responsive Landing Page 2019</span>
-                        <p>sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
-                           quissed do eiusmod tempor incididunt ut labore et dolore 
-                           magna aliqua. Ut enim ad minim veniam, quis  
+                        <p>+(251)-11-12649942490 In the compound of old ERPA Building, 
+                        Arada Subcity, Behind Lycee G / Mariam School, Churchill Road Addis Ababa, Ethiopia  
                         </p>
                      </div>
                   </div>
@@ -280,7 +217,6 @@
                <div class="container">
                   <div class="row">
                      <div class="col-md-12">
-                        <p>© 2019 All Rights Reserved. <a href="https://html.design/">Free html Templates</a></p>
                      </div>
                   </div>
                </div>
