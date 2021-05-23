@@ -188,7 +188,8 @@
             <img src={{ url("dist/img/user2-160x160.jpg")}} class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
-            <a href="#" class="d-block">Alexander Pierce</a>
+            <a href="#" class="d-block">{{auth()->user()->first_name}}</a>
+            <a href="#" class="d-block">{{auth()->user()->last_name}}</a>
           </div>
         </div>
 
@@ -210,7 +211,7 @@
             <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
             <li class="nav-item">
-              <a href="index.html" class="nav-link ">
+              <a href="#" class="nav-link ">
                 <i class="nav-icon fas fa-th"></i>
                 <p>
                   Dashboard

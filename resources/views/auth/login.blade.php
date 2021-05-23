@@ -8,8 +8,8 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 
-<body>
-    <div class="loginbox">
+<body style="background-color: #14141f ">
+    <div class="loginbox" ;">
         <img src="img/user_pic.png" class="avater">
         <h1>Login Here</h1>
         @if(Session::get('loginredirect'))
