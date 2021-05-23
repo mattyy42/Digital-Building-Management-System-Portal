@@ -41,3 +41,10 @@ Route::get('/admin/deleteBoard/{id}','AdminController@deleteBoard');
 Route::get('/admin/manageUser', function () {
     return view('adminPages.manageUser');
 });
+
+//applicant routes
+Route::get('/applicant/applicationPage',function(){
+    return view('applicantPages.applicationForm');
+});
+Route::post('/appliant/submitAppliction/{id}','ApplicantController@storeApplication');
+Route::get('/applicant/viewApplication/{id}','ApplicantController@viewApplication');

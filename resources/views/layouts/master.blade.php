@@ -262,13 +262,13 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="/admin/applicant" class="nav-link">
+                  <a href="/applicant/applicationPage" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Add Application</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="/admin/buildingOfficer" class="nav-link">
+                  <a href="{{ url('/applicant/viewApplication/'.auth()->user()->id )}}" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>View Applications</p>
                   </a>
