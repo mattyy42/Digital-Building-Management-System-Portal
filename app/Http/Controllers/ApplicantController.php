@@ -65,4 +65,8 @@ class ApplicantController extends Controller
         $applications =Application::where('applicant_id',$id)->get();
         return view('applicantPages.viewApplication',compact('applications'));
     }
+    public function deleteApplication($id){
+        $applications=Application::findOrFail($id)->delete();
+        return redirect('/applicant/viewApplication/.auth()->user()->id');
+    }
 }

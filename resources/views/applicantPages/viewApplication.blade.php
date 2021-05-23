@@ -15,7 +15,7 @@
             <tr>
                 <td>{{$application->id}}</td>
                 <td>{{$application->applicant->first_name}}</td>
-                <td><button class="badge bg-danger">Delete</button></td>
+                <td><a class="badge bg-danger" href="{{ url('/applicant/delete/'.$application->id)}}">Delete</a></td>
             </tr>
             @endforeach
         </tbody>
