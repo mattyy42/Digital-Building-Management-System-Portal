@@ -79,6 +79,8 @@ class RegisterController extends Controller
             'name'=>'applicant',
             'user_id' =>$createUser['id'],
         ]);
-        return $createUser;
+        
+        $token=$createUser->createToken('Personal Access Token')->accessToken;
+        return response()->json(['token'=>$token],200);
     }
 }
