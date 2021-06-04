@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Foundation\Auth\User;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -49,3 +52,4 @@ Route::get('/applicant/applicationPage',function(){
 Route::post('/appliant/submitAppliction/{id}','ApplicantController@storeApplication');
 Route::get('/applicant/viewApplication/{id}','ApplicantController@viewApplication');
 Route::get('/applicant/delete/{id}','ApplicantController@deleteApplication');
+// Route::get('/register','')
