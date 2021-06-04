@@ -67,6 +67,6 @@ class ApplicantController extends Controller
     }
     public function deleteApplication($id){
         $applications=Application::findOrFail($id)->delete();
-        return redirect('/applicant/viewApplication/.auth()->user()->id');
+        return redirect('/applicant/viewApplication/'.auth()->user()->id);
     }
 }

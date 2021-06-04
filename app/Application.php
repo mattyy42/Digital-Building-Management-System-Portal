@@ -14,5 +14,14 @@ class Application extends Model
     public function buildingOfficer(){
         return $this->belongsTo(User::class);
     }
+    public function location(){
+        return $this->hasOne(ConstructionLocation::class);
+    }
+    public function consultingFirm(){
+        return $this->hasOne(ConsultingFirm::class);
+    }
+    public function locationType(){
+        return $this->hasOne(ConstructionType::class);
+    }
     
 }
