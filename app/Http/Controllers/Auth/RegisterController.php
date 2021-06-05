@@ -81,6 +81,6 @@ class RegisterController extends Controller
         ]);
         
         $token=$createUser->createToken('Personal Access Token')->accessToken;
-        return response()->json(['token'=>$token],200);
+        return response()->json(['token'=>$token], $this-> successStatus);
     }
 }
