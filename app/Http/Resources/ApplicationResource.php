@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\ConstructionLocation;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ApplicationResource extends JsonResource
@@ -16,8 +17,9 @@ class ApplicationResource extends JsonResource
     {
         return [
             'id'=> $this->id,
-            'sub_city'=> $this->sub_city, 
-
+            'location'=>new ConstructionLocationResource($this->location),
+            'consultingFirm'=>new ConsultingFirmResource($this->consultingFirm),
+            'constructionType'=>new ConstructionTypeResource($this->constructionType),
         ];
     }
 }

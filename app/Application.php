@@ -20,7 +20,7 @@ class Application extends Model
     public function consultingFirm(){
         return $this->hasOne(ConsultingFirm::class);
     }
-    public function locationType(){
+    public function constructionType(){
         return $this->hasOne(ConstructionType::class);
     }
     

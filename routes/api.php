@@ -29,7 +29,7 @@ Route::get('/user', function (Request $request) {
 Route::post('/register','api\AutheticationController@register');
 Route::post('/login','api\AutheticationController@login');
 //application 
-Route::post('/appliant/submitAppliction/{id}','api\ApplicantController@storeApplication');
+Route::post('/applicant/submitAppliction/{id}','api\ApplicantController@storeApplication');
 Route::get('/applicant/viewApplication/{id}', function()
 {
     return new ApplicationResource(Application::first());

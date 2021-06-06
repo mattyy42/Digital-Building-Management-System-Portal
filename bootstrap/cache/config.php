@@ -10,7 +10,7 @@
     'locale' => 'en',
     'fallback_locale' => 'en',
     'faker_locale' => 'en_US',
-    'key' => 'base64:eL8M3ko7V2e8lA0XvRDfSb+8CrbZaBhQaaJKlQTH6nE=',
+    'key' => 'base64:Ns/Tasi4qj5AZHNA8gajofpGFZCU7bs57Yx++RCXcGY=',
     'cipher' => 'AES-256-CBC',
     'providers' => 
     array (
@@ -176,7 +176,7 @@
       'file' => 
       array (
         'driver' => 'file',
-        'path' => 'C:\\xampp\\htdocs\\Digital-Building-Management-System-Portal\\Digital-Building-Management-System-Portal\\storage\\framework/cache/data',
+        'path' => 'C:\\Users\\admin\\Desktop\\final project\\Digital-Building-Management-System-Portal\\storage\\framework/cache/data',
       ),
       'memcached' => 
       array (
@@ -226,7 +226,7 @@
       array (
         'driver' => 'sqlite',
         'url' => NULL,
-        'database' => 'DBPMS',
+        'database' => 'finalProject',
         'prefix' => '',
         'foreign_key_constraints' => true,
       ),
@@ -236,7 +236,7 @@
         'url' => NULL,
         'host' => '127.0.0.1',
         'port' => '3306',
-        'database' => 'DBPMS',
+        'database' => 'finalProject',
         'username' => 'root',
         'password' => '',
         'unix_socket' => '',
@@ -256,7 +256,7 @@
         'url' => NULL,
         'host' => '127.0.0.1',
         'port' => '3306',
-        'database' => 'DBPMS',
+        'database' => 'finalProject',
         'username' => 'root',
         'password' => '',
         'charset' => 'utf8',
@@ -271,7 +271,7 @@
         'url' => NULL,
         'host' => '127.0.0.1',
         'port' => '3306',
-        'database' => 'DBPMS',
+        'database' => 'finalProject',
         'username' => 'root',
         'password' => '',
         'charset' => 'utf8',
@@ -315,12 +315,12 @@
       'local' => 
       array (
         'driver' => 'local',
-        'root' => 'C:\\xampp\\htdocs\\Digital-Building-Management-System-Portal\\Digital-Building-Management-System-Portal\\storage\\app',
+        'root' => 'C:\\Users\\admin\\Desktop\\final project\\Digital-Building-Management-System-Portal\\storage\\app',
       ),
       'public' => 
       array (
         'driver' => 'local',
-        'root' => 'C:\\xampp\\htdocs\\Digital-Building-Management-System-Portal\\Digital-Building-Management-System-Portal\\storage\\app/public',
+        'root' => 'C:\\Users\\admin\\Desktop\\final project\\Digital-Building-Management-System-Portal\\storage\\app/public',
         'url' => 'http://localhost/storage',
         'visibility' => 'public',
       ),
@@ -367,13 +367,13 @@
       'single' => 
       array (
         'driver' => 'single',
-        'path' => 'C:\\xampp\\htdocs\\Digital-Building-Management-System-Portal\\Digital-Building-Management-System-Portal\\storage\\logs/laravel.log',
+        'path' => 'C:\\Users\\admin\\Desktop\\final project\\Digital-Building-Management-System-Portal\\storage\\logs/laravel.log',
         'level' => 'debug',
       ),
       'daily' => 
       array (
         'driver' => 'daily',
-        'path' => 'C:\\xampp\\htdocs\\Digital-Building-Management-System-Portal\\Digital-Building-Management-System-Portal\\storage\\logs/laravel.log',
+        'path' => 'C:\\Users\\admin\\Desktop\\final project\\Digital-Building-Management-System-Portal\\storage\\logs/laravel.log',
         'level' => 'debug',
         'days' => 14,
       ),
@@ -423,7 +423,7 @@
       ),
       'emergency' => 
       array (
-        'path' => 'C:\\xampp\\htdocs\\Digital-Building-Management-System-Portal\\Digital-Building-Management-System-Portal\\storage\\logs/laravel.log',
+        'path' => 'C:\\Users\\admin\\Desktop\\final project\\Digital-Building-Management-System-Portal\\storage\\logs/laravel.log',
       ),
     ),
   ),
@@ -446,7 +446,7 @@
       'theme' => 'default',
       'paths' => 
       array (
-        0 => 'C:\\xampp\\htdocs\\Digital-Building-Management-System-Portal\\Digital-Building-Management-System-Portal\\resources\\views/vendor/mail',
+        0 => 'C:\\Users\\admin\\Desktop\\final project\\Digital-Building-Management-System-Portal\\resources\\views/vendor/mail',
       ),
     ),
     'log_channel' => NULL,
@@ -525,7 +525,7 @@
     'lifetime' => '120',
     'expire_on_close' => false,
     'encrypt' => false,
-    'files' => 'C:\\xampp\\htdocs\\Digital-Building-Management-System-Portal\\Digital-Building-Management-System-Portal\\storage\\framework/sessions',
+    'files' => 'C:\\Users\\admin\\Desktop\\final project\\Digital-Building-Management-System-Portal\\storage\\framework/sessions',
     'connection' => NULL,
     'table' => 'sessions',
     'store' => NULL,
@@ -545,9 +545,9 @@
   array (
     'paths' => 
     array (
-      0 => 'C:\\xampp\\htdocs\\Digital-Building-Management-System-Portal\\Digital-Building-Management-System-Portal\\resources\\views',
+      0 => 'C:\\Users\\admin\\Desktop\\final project\\Digital-Building-Management-System-Portal\\resources\\views',
     ),
-    'compiled' => 'C:\\xampp\\htdocs\\Digital-Building-Management-System-Portal\\Digital-Building-Management-System-Portal\\storage\\framework\\views',
+    'compiled' => 'C:\\Users\\admin\\Desktop\\final project\\Digital-Building-Management-System-Portal\\storage\\framework\\views',
   ),
   'flare' => 
   array (

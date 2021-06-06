@@ -13,7 +13,7 @@ use App\ConstructionType;
 use App\ConsultingFirm;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use App\Http\Resources\ApplicationResource;
 
 class ApplicantController extends Controller
 {
@@ -37,7 +37,7 @@ class ApplicantController extends Controller
             'consultingFirmAddress'=>'required',
         ]);
         $application=Application::create([
-            'applicant_id'=>$id
+            'applicant_id'=>$id,
         ]);
         $constructionLocation=ConstructionLocation::create([
             'city'=>$request['city'],
@@ -64,7 +64,8 @@ class ApplicantController extends Controller
             'address'=>$request['consultingFirmAddress'],
             'application_id'=>$application->id,
         ]);
-        return response()->json(['id'=>$id]);
+        return new ApplicationResource($application);
+
       //  return redirect('/applicant/viewApplication/.$id');
     }
     public function viewApplication($id){
