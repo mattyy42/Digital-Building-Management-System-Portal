@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use App\Http\Resources;
 class Application extends Model
 {
     protected $fillable=['application_stutus','applicant_id','buildingOfficer_id'];

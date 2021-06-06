@@ -2,9 +2,10 @@
 
 use Illuminate\Http\Request;
 //use Illuminate\Routing\Route;
-
+use App\Http\Resources\ApplicationResource;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\ApplicantController;
+use App\Application;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,5 +30,8 @@ Route::post('/register','api\AutheticationController@register');
 Route::post('/login','api\AutheticationController@login');
 //application 
 Route::post('/appliant/submitAppliction/{id}','api\ApplicantController@storeApplication');
-Route::get('/applicant/viewApplication/{id}','api\ApplicantController@viewApplication');
+Route::get('/applicant/viewApplication/{id}', function()
+{
+    return new ApplicationResource(Application::first());
+});
 Route::get('/applicant/delete/{id}','api\ApplicantController@deleteApplication');
