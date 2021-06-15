@@ -6,7 +6,7 @@ use App\Http\Resources\ApplicationResource;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\ApplicantController;
 use App\Application;
-
+use App\complain;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -24,14 +24,23 @@ use App\Application;
 Route::get('/user', function (Request $request) {
     return $request::user();
  })->middleware('auth:api');
+//admin routes 
+
+// Route::post('/admin/registerBuildingOfficer','AdminController@registerBuildingOfficer');
 
 //use api/register
 Route::post('/register','api\AutheticationController@register');
 Route::post('/login','api\AutheticationController@login');
+
 //application 
-Route::post('/applicant/submitAppliction/{id}','api\ApplicantController@storeApplication');
+Route::post('/applicant/submitApplication/{id}','api\ApplicantController@storeApplication');
 Route::get('/applicant/viewApplication/{id}', function()
 {
     return new ApplicationResource(Application::first());
 });
 Route::get('/applicant/delete/{id}','api\ApplicantController@deleteApplication');
+//complain
+Route::post('/applicant/submitComplain/{id}','api\ComplainController@store');
+Route::get('/boa/viewcomplain','api\ComplainController@index');
+Route::get('/boa/viewcomplain/{id}','api\ComplainController@show');
+Route::get('/boa/editcomplain/{id}','api\ComplainController@edit');
