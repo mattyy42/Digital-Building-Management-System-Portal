@@ -23,5 +23,8 @@ class Application extends Model
     public function constructionType(){
         return $this->hasOne(ConstructionType::class);
     }
+    public function complain(){
+        return $this->belongsTo(complain::class); 
+     }
     
 }
