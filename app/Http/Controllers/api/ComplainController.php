@@ -49,13 +49,15 @@ class ComplainController extends Controller
     public function store(Request $request,$id)
     {
         //when the person views his application in tabular form 
-        //complain should be button  where there route passes 
+        //complain should be button  where there route passes
+        //$id is application id 
         $request->validate([
             'complain'=>'required',
         ]);
         $applicant_id=Application::where('id',$id)->pluck('applicant_id')->first();
         $buildingOfficer_id=Application::where('id',$id)->pluck('buildingOfficer_id')->first();
         $complain_check=Complain::where('application_id','=',$id)->first();
+        //return $applicant_id;
         if ($complain_check ===null) {
             # code...
             $complain=Complain::create([
@@ -79,7 +81,7 @@ class ComplainController extends Controller
      * Display the specified resource.
      *
      * @param  \App\complain  $complain
-     * @return \Illuminate\Http\Response
+       * @return \Illuminate\Http\Response
      */
     public function show($id)
     {

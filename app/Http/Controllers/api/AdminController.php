@@ -1,12 +1,17 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\api;
 
+
+use App\Http\Resources\UserResource;
 use App\Role;
 use App\User;
 use Illuminate\Http\Request;
+use App\Http\Resources\RoleResource;
+use App\Http\Controllers\Controller;
 
 use Illuminate\Support\Facades\Hash;
+
 class AdminController extends Controller
 {
     public function showAllApplicant()
@@ -49,9 +54,11 @@ class AdminController extends Controller
             'name'=>$request['role'],
             'user_id' =>$buildingOfficer['id'],
             'bureau'=>$request['bureau'],
+            // 'building_officer_id'=>$buildingOfficer->id,
         ]);
         
-        return redirect(route('buildingOfficers'));
+        // return redirect(route('buildingOfficers'));
+        return new UserResource($buildingOfficer);
     }
     public function deleteOfficer($id){
         $user=User::findOrFail($id)->delete();

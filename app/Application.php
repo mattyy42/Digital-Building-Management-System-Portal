@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Http\Resources;
 class Application extends Model
 {
-    protected $fillable=['application_stutus','applicant_id','buildingOfficer_id'];
+    protected $fillable=['application_stutus','applicant_id','buildingOfficer_id','bureau'];
 
     public function applicant(){
         return $this->belongsTo(User::class,'applicant_id');

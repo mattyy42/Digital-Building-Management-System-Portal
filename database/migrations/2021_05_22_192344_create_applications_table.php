@@ -21,6 +21,9 @@ class CreateApplicationsTable extends Migration
               
             $table->foreign('applicant_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('buildingOfficer_id')->references('id')->on('users')->onDelete('cascade');
+            $table->string('bureau');
+            // $table->unsignedBigInteger('bureau_id');
+            // $table->foreign('bureau_id')->references('id')->on('bureau')->onDelete('cascade');
             $table->timestamps();
         });
     }

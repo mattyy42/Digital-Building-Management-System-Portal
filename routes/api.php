@@ -26,7 +26,7 @@ Route::get('/user', function (Request $request) {
  })->middleware('auth:api');
 //admin routes 
 
-// Route::post('/admin/registerBuildingOfficer','AdminController@registerBuildingOfficer');
+Route::post('/admin/registerBuildingOfficer','api\AdminController@registerBuildingOfficer');
 
 //use api/register
 Route::post('/register','api\AutheticationController@register');
