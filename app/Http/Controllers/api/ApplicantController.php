@@ -76,8 +76,8 @@ class ApplicantController extends Controller
             ]);
             //selecting building officers from the chosen buraue
             $Building_officer_selector=Role::where('bureau','=',$bureau_for_application)
-            ->where('name','=','BO')->get();
-            
+            ->where('name','=','BO')->min('active_applications');
+
             // $changed = $Building_officer_selector->map(function ($value, $key) {
             //     //$ap=1000;               
             //     //echo $value;
@@ -99,7 +99,7 @@ class ApplicantController extends Controller
 
            
             //$rr=$Building_officer_selector->user_id;
-           // return $Building_officer_selector;
+            return $Building_officer_selector;
             // return $rr;
 
 
