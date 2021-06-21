@@ -24,6 +24,9 @@ use App\complain;
 Route::get('/user', function (Request $request) {
     return $request::user();
  })->middleware('auth:api');
+
+//buldingofficer
+Route::get('/buldingofficer/viewApplication/{id}','api\ApplicantController@viewMyApplication');
 //admin routes 
 
 Route::post('/admin/registerBuildingOfficer','api\AdminController@registerBuildingOfficer');

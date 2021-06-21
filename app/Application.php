@@ -26,5 +26,9 @@ class Application extends Model
     public function complain(){
         return $this->belongsTo(complain::class); 
      }
+     public function appointment()
+     {
+         return $this->hasOne(appointment::class);
+     }
     
 }

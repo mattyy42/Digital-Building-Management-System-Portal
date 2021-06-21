@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBureauTable extends Migration
+class CreateAppointmentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateBureauTable extends Migration
      */
     public function up()
     {
-        Schema::create('bureau', function (Blueprint $table) {
+        Schema::create('appointments', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('Bureau');
-            $table->string('subcity');
+            $table->unsignedBigInteger('application_id');
+            $table->foreign('application_id')->references('id')->on('applications')->onDelete('cascade');
+            $table->dateTime('appointment_time');
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ class CreateBureauTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bureau');
+        Schema::dropIfExists('appointments');
     }
 }

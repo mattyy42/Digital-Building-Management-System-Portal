@@ -20,6 +20,7 @@ class ApplicationResource extends JsonResource
             'location'=>new ConstructionLocationResource($this->location),
             'consultingFirm'=>new ConsultingFirmResource($this->consultingFirm),
             'constructionType'=>new ConstructionTypeResource($this->constructionType),
+            'appointment'=>new AppointmentResource($this->appointment), 
         ];
     }
 }
