@@ -18,23 +18,30 @@ use App\complain;
 |
 */
 
-// Route::middleware('auth:api')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-Route::get('/user', function (Request $request) {
-    return $request::user();
- })->middleware('auth:api');
+Route::middleware('auth:api')->get('/user', function (Request $request) {
+    return $request->user();
+});
+
 
 //buldingofficer
 Route::get('/buldingofficer/viewApplication/{id}','api\ApplicantController@viewMyApplication');
-//admin routes 
+
+//admin routes   use api/
+
+Route::get('admin/showAllApplicant','api\AdminController@showAllApplicant');
 
 Route::post('/admin/registerBuildingOfficer','api\AdminController@registerBuildingOfficer');
+Route::get('/admin/deleteBuildingOfficer','api\AdminController@deleteOfficer');
+Route::get('/admin/showAllOfficer','api\AdminController@showAllBuildingOfficer');
+
+Route::post('/admin/registerBoardOfApplicance','api\AdminController@registerBoard');
+Route::get('/admin/deleteBoard','api\AdminController@registerBoard');
+Route::get('/admin/showAllBoard','api\AdminController@showAllBoard');
 
 //use api/register
 Route::post('/register','api\AutheticationController@register');
 Route::post('/login','api\AutheticationController@login');
-
+Route::post('/logout','api\AutheticationController@logout')->middleware('auth:api');
 //application 
 Route::post('/applicant/submitApplication/{id}','api\ApplicantController@storeApplication');
 Route::get('/applicant/viewApplication/{id}', function()

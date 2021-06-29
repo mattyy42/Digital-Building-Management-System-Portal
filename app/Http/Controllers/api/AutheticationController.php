@@ -15,11 +15,11 @@ class AutheticationController extends Controller
     public function register(Request $data)
     {
         $data->validate([
-            'email'=>'required|unique:users',
-            'first_name'=>'required','string',
-            'last_name'=>'required' ,'string',
-            'password'=>'required|min:6','confirmed',
-            'phone_number'=>'required|unique:users'
+            'email' => 'required|unique:users',
+            'first_name' => 'required', 'string',
+            'last_name' => 'required', 'string',
+            'password' => 'required|min:6', 'confirmed',
+            'phone_number' => 'required|unique:users'
         ]);
         $createUser = User::create([
             'first_name' => $data['first_name'],
@@ -36,18 +36,35 @@ class AutheticationController extends Controller
         $token = $createUser->createToken('Personal Access Token')->accessToken;
         return response()->json(['token' => $token], 200);
     }
-    public function login(Request $request){
-        $credentials=[
+    public function login(Request $request)
+    {
+        $credentials = [
             'email' => $request->email,
-            'password'=>$request->password,
+            'password' => $request->password,
         ];
-        if(auth()->attempt($credentials)){
-            $token=auth()->user()->createToken('Personal Access Token')->accessToken;
+        if (auth()->attempt($credentials)) {
+            $token = auth()->user()->createToken('Personal Access Token')->accessToken;
             return response()->json([
-                'token'=>$token,
-            ],200);
-        }else{
-            return response()->json(['error'=>'Incorrect Email or Password please try again'],401);
+                'token' => $token,
+                'user' => auth()->user()
+            ]);
+        } else {
+            return response()->json(['error' => 'Incorrect Email or Password please try again'], 401);
+        }
+    }
+    public function logout(Request $request)
+    {
+        if (auth()->check()) {
+            auth()->user()->token()->revoke();
+            return response()->json([
+                'success' => true,
+                'message' => 'Logout successfully'
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Unable to Logout'
+            ]);
         }
     }
 }

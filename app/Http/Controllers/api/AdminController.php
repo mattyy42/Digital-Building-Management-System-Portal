@@ -21,7 +21,7 @@ class AdminController extends Controller
         foreach ($applicantId as $applicant) {
             array_push($users, $applicant->user);
         }
-        return view('adminPages.manageApplicant', compact('users'));
+        return UserResource::collection($users);
     }
     public function showAllBuildingOfficer()
     {
@@ -30,7 +30,7 @@ class AdminController extends Controller
         foreach ($applicantId as $applicant) {
             array_push($users, $applicant->user);
         }
-        return view('adminPages.manageBuildingOfficer', compact('users'));
+        return UserResource::collection($users);
     }
     public function registerBuildingOfficer(Request $request)
     {
@@ -39,44 +39,46 @@ class AdminController extends Controller
             'last_name' => 'required',
             'phone_number' => 'required',
             'email' => 'required|unique:users|max:255|email',
-            'password'=>'required|min:6',
-            'role'=>'required',
-            'bureau'=>'required'
+            'password' => 'required|min:6',
+            'role' => 'required',
+            'bureau' => 'required'
         ]);
-        $buildingOfficer=User::create([
+        $buildingOfficer = User::create([
             'first_name' => $request['first_name'],
             'last_name' => $request['last_name'],
             'phone_number' => $request['phone_number'],
             'email' => $request['email'],
             'password' => Hash::make($request['password']),
         ]);
-        $createrole=Role::create([
-            'name'=>$request['role'],
-            'user_id' =>$buildingOfficer['id'],
-            'bureau'=>$request['bureau'],
+        $createrole = Role::create([
+            'name' => $request['role'],
+            'user_id' => $buildingOfficer['id'],
+            'bureau' => $request['bureau'],
             // 'building_officer_id'=>$buildingOfficer->id,
         ]);
-        
+
         // return redirect(route('buildingOfficers'));
         return new UserResource($buildingOfficer);
     }
-    public function deleteOfficer($id){
-        $user=User::findOrFail($id)->delete();
-        $role=Role::where('user_id',$id)->delete();
+    public function deleteOfficer($id)
+    {
+        $user = User::findOrFail($id)->delete();
+        $role = Role::where('user_id', $id)->delete();
         session()->flash('message', 'The Building officer user is deleted successfully');
         return redirect(route('board'));
     }
 
 
 
-    public function showAllBoard(){
-        
+    public function showAllBoard()
+    {
+
         $applicantId = Role::where('name', 'boardOfAppliance')->get();
         $users = [];
         foreach ($applicantId as $applicant) {
             array_push($users, $applicant->user);
         }
-        return view('adminPages.manageBoard', compact('users'));
+        return UserResource::collection($users);
     }
 
     public function registerBoard(Request $request)
@@ -86,30 +88,30 @@ class AdminController extends Controller
             'last_name' => 'required',
             'phone_number' => 'required',
             'email' => 'required|unique:users|max:255|email',
-            'password'=>'required|min:6',
-            'role'=>'required',
-            'bureau'=>'required'
+            'password' => 'required|min:6',
+            'role' => 'required',
+            'bureau' => 'required'
         ]);
-        $board=User::create([
+        $board = User::create([
             'first_name' => $request['first_name'],
             'last_name' => $request['last_name'],
             'phone_number' => $request['phone_number'],
             'email' => $request['email'],
             'password' => Hash::make($request['password']),
         ]);
-        $createrole=Role::create([
-            'name'=>$request['role'],
-            'user_id' =>$board['id'],
-            'bureau'=>$request['bureau'],
+        $createrole = Role::create([
+            'name' => $request['role'],
+            'user_id' => $board['id'],
+            'bureau' => $request['bureau'],
         ]);
-        
-        return redirect(route('board'));
+
+        return new UserResource($board);
     }
-    public function deleteBoard($id){
-        $user=User::findOrFail($id)->delete();
-        $role=Role::where('user_id',$id)->delete();
+    public function deleteBoard($id)
+    {
+        $user = User::findOrFail($id)->delete();
+        $role = Role::where('user_id', $id)->delete();
         session()->flash('message', 'The Board of Appliance user is deleted successfully');
         return redirect(route('board'));
     }
 }
-
