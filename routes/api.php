@@ -41,7 +41,7 @@ Route::get('/admin/showAllBoard','api\AdminController@showAllBoard');
 //use api/register
 Route::post('/register','api\AutheticationController@register');
 Route::post('/login','api\AutheticationController@login');
-Route::post('/logout','api\AutheticationController@logout')->middleware('auth:api');
+Route::get('/logout','api\AutheticationController@logout')->middleware('auth:api');
 //application 
 Route::post('/applicant/submitApplication/{id}','api\ApplicantController@storeApplication');
 Route::get('/applicant/viewApplication/{id}', function()
