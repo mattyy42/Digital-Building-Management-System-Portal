@@ -111,7 +111,7 @@ class ApplicantController extends Controller
             $application = Application::create([
                 'applicant_id' => $id,
                 'bureau' => $bureau_for_application,
-                //'buildingOfficer_id' => $uid,
+                'buildingOfficer_id' => $uid,
             ]);
             $consultingFirm = ConsultingFirm::create([
                 'name' => $request['consultingFirmName'],
