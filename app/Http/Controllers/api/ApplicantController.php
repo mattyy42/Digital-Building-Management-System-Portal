@@ -47,11 +47,11 @@ class ApplicantController extends Controller
         $number_of_floors = (int)$nof;
         if ($number_of_floors >= 7)
          {
-            $bureau_for_application = $request['city'];
+            $bureau_for_application = $request['sub_city'];
             //selecting building officers from the chosen buraue
             $Building_officer_selector = Role::where('bureau', '=', $bureau_for_application)
                 ->where('name', '=', 'BO')->min('active_applications');
-            $user_id = Role::where('active_applications', '=', $Building_officer_selector)->first();
+            $user_id = Role::where('active_applications', '=', $Building_officer_selector)->where('name', '=', 'BO')->first();
             // return $user_id;
             $uid = $user_id->user_id;
            
@@ -99,10 +99,12 @@ class ApplicantController extends Controller
         }
          else {
             $bureau_for_application = $request['sub_city'];
+            
             //selecting building officers from the chosen buraue
             $Building_officer_selector = Role::where('bureau', '=', $bureau_for_application)
                 ->where('name', '=', 'BO')->min('active_applications');
-            $user_id = Role::where('active_applications', '=', $Building_officer_selector)->first();
+            $user_id = Role::where('active_applications', '=', $Building_officer_selector)->where('name', '=', 'BO')->first();
+        
             $uid=$user_id->user_id;
            // return $bureau_for_application;
             //$buildingOfficer = $Building_officer_selector->user_id;
@@ -165,35 +167,31 @@ class ApplicantController extends Controller
              $updater=Role::where('user_id','=',$id)->first();
              $updater->active_applications=$updater->active_applications+1;
              $updater->save();
-
-             
-
+  
             return new ApplicationResource($application);
         }
     }
     public function viewApplication($id)
     {
         $applications = Application::where('applicant_id', $id)->get();
-        return response()->json([
-            'applications' => $applications
-        ]);
-        
+
+        return ApplicationResource::collection($applications);
+      
     }
     public function viewMyApplication($id)
     {
         
-        //bo'sviewing application assigned to them
+        //bo's viewing application assigned to them
         $my_applications=Application::where('buildingOfficer_id',$id)->get(); 
-        $applicants_id =$my_applications->applicant_id;
-        return response()->json([
-            'applications' => $applicants_id,
-        ]);
+        
+        //$applicants_id =$my_applications->applicant_id;
+
+        return ApplicationResource::collection($my_applications);
 
         //on the forntend it will be viewed as table 
         //with details button option it where the value pass applicant_id
         //new Route and functions will be defined for details
         
-
 
     }
     public function deleteApplication($id)

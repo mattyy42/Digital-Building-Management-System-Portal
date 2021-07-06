@@ -54,11 +54,12 @@ class ComplainController extends Controller
         $request->validate([
             'complain'=>'required',
         ]);
+        
         $applicant_id=Application::where('id',$id)->pluck('applicant_id')->first();
         $buildingOfficer_id=Application::where('id',$id)->pluck('buildingOfficer_id')->first();
         $complain_check=Complain::where('application_id','=',$id)->first();
         //return $applicant_id;
-        if ($complain_check ===null) {
+        if ($complain_check === null) {
             # code...
             $complain=Complain::create([
                 'applicant_id'=>$applicant_id,

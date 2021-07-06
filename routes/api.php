@@ -31,7 +31,7 @@ Route::get('/buldingofficer/viewApplication/{id}','api\ApplicantController@viewM
 Route::get('admin/showAllApplicant','api\AdminController@showAllApplicant');
 
 Route::post('/admin/registerBuildingOfficer','api\AdminController@registerBuildingOfficer');
-Route::get('/admin/deleteBuildingOfficer','api\AdminController@deleteOfficer');
+Route::get('/admin/deleteBuildingOfficer/{id}','api\AdminController@deleteOfficer');
 Route::get('/admin/showAllOfficer','api\AdminController@showAllBuildingOfficer');
 
 Route::post('/admin/registerBoardOfApplicance','api\AdminController@registerBoard');
