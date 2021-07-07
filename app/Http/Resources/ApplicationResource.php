@@ -17,6 +17,7 @@ class ApplicationResource extends JsonResource
     {
         return [
             'id'=> $this->id,
+            'bureau'=>$this->bureau,
             'applicant'=>new UserResource($this->applicant),
             'buildingOfficer'=>new UserResource($this->buildingOfficer),
 

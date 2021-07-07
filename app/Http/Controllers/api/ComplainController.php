@@ -10,6 +10,7 @@ use App\constructionLocation;
 use App\constructionType;
 
 use App\Http\Resources\ComplainResource;
+use App\Role;
 use Illuminate\Http\Request;
 
 class ComplainController extends Controller
@@ -27,6 +28,14 @@ class ComplainController extends Controller
             'complains'=>$complains
         ]);
 
+    }
+    public function Viewmycomplain($id )
+    {
+        # code...
+        $complains=Complain::where('');
+        return response()->json([
+            'complains'=>$complains
+        ]);
     }
 
     /**
@@ -54,17 +63,17 @@ class ComplainController extends Controller
         $request->validate([
             'complain'=>'required',
         ]);
-        
         $applicant_id=Application::where('id',$id)->pluck('applicant_id')->first();
-        $buildingOfficer_id=Application::where('id',$id)->pluck('buildingOfficer_id')->first();
+        //$buildingOfficer_id=Application::where('id',$id)->pluck('buildingOfficer_id')->first();
         $complain_check=Complain::where('application_id','=',$id)->first();
-        //  return $buildingOfficer_id;
-        if ($complain_check === null) {
-            # code...
+        if ($complain_check === null) 
+        {
+            $bureau_type=Application::where('id',$id)->pluck('bureau')->first();
+            $board_of_appliance_id=Role::where('bureau',$bureau_type)->pluck('user_id')->first();
             $complain=Complain::create([
                 'applicant_id'=>$applicant_id,
                 'application_id'=>$id,
-                'buildingOfficer_id'=>$buildingOfficer_id,
+                'BOA_id'=>$board_of_appliance_id,
                 'complain'=>$request['complain'],
                 'status'=>$request['status'],
             ]);
@@ -75,7 +84,7 @@ class ComplainController extends Controller
             ]);
         }
         
-         return new ComplainResource($complain);       
+        return new ComplainResource($complain);       
     }
 
     /**
@@ -135,5 +144,17 @@ class ComplainController extends Controller
     public function destroy(complain $complain)
     {
         //
+    }
+    public function DecidedMyComplain(Request $request,$id)
+    {
+        //
+        $complains =Complain::where('id','=',$id)->where('status','0')->get();
+        $request->validate([
+            'BOAcomment'=>'required',
+        ]);
+
+       // $BOAcomment=request['BOAcomment'];
+        return ComplainResource::collection($complains);
+// Front end concept 
     }
 }

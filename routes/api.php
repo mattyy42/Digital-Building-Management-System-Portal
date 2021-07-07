@@ -51,6 +51,7 @@ Route::get('/applicant/viewApplication/{id}', function()
 Route::get('/applicant/delete/{id}','api\ApplicantController@deleteApplication');
 //complain
 Route::post('/applicant/submitComplain/{id}','api\ComplainController@store');
-Route::get('/boa/viewcomplain','api\ComplainController@index');
+Route::get('/boa/viewMyComplain/{id}','api\ApplicantController@viewMyComplain');
 Route::get('/boa/viewcomplain/{id}','api\ComplainController@show');
 Route::get('/boa/editcomplain/{id}','api\ComplainController@edit');
+Route::post('/boa/deletecomplain/{id}','api\ApplicantController@deleteComplain');

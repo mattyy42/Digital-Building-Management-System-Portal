@@ -7,6 +7,7 @@ use App\ConstructionLocation;
 use App\bureau;
 use App\User;
 use App\Role;
+use App\complain;
 use Laravel\Passport;
 use Illuminate\Support\Facades\Validator;
 use App\Application;
@@ -16,6 +17,7 @@ use App\ConsultingFirm;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ApplicationResource;
+use App\Http\Resources\ComplainResource;
 use Carbon\Carbon;
 
 class ApplicantController extends Controller
@@ -47,7 +49,7 @@ class ApplicantController extends Controller
         $number_of_floors = (int)$nof;
         if ($number_of_floors >= 7)
          {
-            $bureau_for_application = $request['sub_city'];
+            $bureau_for_application = $request['city'];
             //selecting building officers from the chosen buraue
             $Building_officer_selector = Role::where('bureau', '=', $bureau_for_application)
                 ->where('name', '=', 'BO')->min('active_applications');
@@ -206,4 +208,23 @@ class ApplicantController extends Controller
 
         ])->redirect('/applicant/viewApplication/' . auth()->user()->id);
     }
+    public function deleteComplain($id)
+    {
+        //it is deleting the application 
+        $complains = Complain::where('applicant_id',$id)->where('status','0')->delete();
+        // return redirect('/applicant/viewApplication/'.auth()->user()->id);
+        $deleted = 'your application id' . $id . 'successfully deleted ';
+        return response()->json([
+            'Success' => $deleted,
+            'applications' => $complains
+
+        ]);
+    }
+    public function ViewMyComplain($id)
+    {
+        //
+        $complains =Complain::where('id','=',$id)->get();
+        return ComplainResource::collection($complains);
+    }
+  
 }

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class complain extends Model
 {
     //
-    protected $fillable=['applicant_id','application_id','buildingOfficer_id','complain','status'];
+    protected $fillable=['applicant_id','application_id','complain','status','BOA_id'];
     public function application()
     {
         # code...
@@ -21,7 +21,7 @@ class complain extends Model
     public function role()
     {
         # code...
-        return $this->hasMany(User::class);
+        return $this->belongsTo(User::class);
     }
 
 }
