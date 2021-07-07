@@ -12,7 +12,7 @@ class Application extends Model
         return $this->belongsTo(User::class,'applicant_id');
     }
     public function buildingOfficer(){
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'buildingOfficer_id');
     }
     public function location(){
         return $this->hasOne(ConstructionLocation::class);
@@ -24,7 +24,7 @@ class Application extends Model
         return $this->hasOne(ConstructionType::class);
     }
     public function complain(){
-        return $this->belongsTo(complain::class); 
+        return $this->hasOne(complain::class); 
      }
      public function appointment()
      {

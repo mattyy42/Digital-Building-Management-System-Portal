@@ -11,6 +11,17 @@ class complain extends Model
     public function application()
     {
         # code...
-        return $this->hasOne(Application::class);
+        return $this->belongsTo(Application::class);
     }
+    public function user()
+    {
+        # code...
+        return $this->hasMany(User::class);
+    }
+    public function role()
+    {
+        # code...
+        return $this->hasMany(User::class);
+    }
+
 }

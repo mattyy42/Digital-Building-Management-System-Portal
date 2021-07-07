@@ -15,6 +15,9 @@ class ComplainResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'id'=> $this->id,
+            'complain'=> $this->complain,
+            'application'=> new ApplicationResource($this->application),
             
         ];
         

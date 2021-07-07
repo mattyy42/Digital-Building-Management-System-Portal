@@ -58,7 +58,7 @@ class ComplainController extends Controller
         $applicant_id=Application::where('id',$id)->pluck('applicant_id')->first();
         $buildingOfficer_id=Application::where('id',$id)->pluck('buildingOfficer_id')->first();
         $complain_check=Complain::where('application_id','=',$id)->first();
-        //return $applicant_id;
+        //  return $buildingOfficer_id;
         if ($complain_check === null) {
             # code...
             $complain=Complain::create([
