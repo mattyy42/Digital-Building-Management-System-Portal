@@ -55,15 +55,7 @@ Route::middleware('auth:api')->group(function () {
     Route::put('/applicant/update/{applicationId}','api\ApplicantController@updateApplication');
 });
 //complain
-<<<<<<< HEAD
 Route::post('/applicant/submitComplain/{id}', 'api\ComplainController@store');
 Route::get('/boa/viewcomplain', 'api\ComplainController@index');
 Route::get('/boa/viewcomplain/{id}', 'api\ComplainController@show');
 Route::get('/boa/editcomplain/{id}', 'api\ComplainController@edit');
-=======
-Route::post('/applicant/submitComplain/{id}','api\ComplainController@store');
-Route::get('/boa/viewMyComplain/{id}','api\ApplicantController@viewMyComplain');
-Route::get('/boa/viewcomplain/{id}','api\ComplainController@show');
-Route::get('/boa/editcomplain/{id}','api\ComplainController@edit');
-Route::post('/boa/deletecomplain/{id}','api\ApplicantController@deleteComplain');
->>>>>>> 40809b982ecac6519b8a89cfba5675e44f487ffa
