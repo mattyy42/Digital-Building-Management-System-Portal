@@ -7,10 +7,21 @@ use Illuminate\Database\Eloquent\Model;
 class complain extends Model
 {
     //
-    protected $fillable=['applicant_id','application_id','buildingOfficer_id','complain','status'];
+    protected $fillable=['applicant_id','application_id','complain','status','BOA_id'];
     public function application()
     {
         # code...
-        return $this->hasOne(Application::class);
+        return $this->belongsTo(Application::class);
     }
+    public function user()
+    {
+        # code...
+        return $this->hasMany(User::class);
+    }
+    public function role()
+    {
+        # code...
+        return $this->belongsTo(User::class);
+    }
+
 }

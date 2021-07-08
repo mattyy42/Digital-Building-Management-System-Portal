@@ -43,4 +43,9 @@ class User extends Authenticatable
     public function application(){
         return $this->hasMany(Application::class);
     }
+    public function complain()
+    {
+        # code...
+        return $this->belongsTo(User::class);
+    }
 }

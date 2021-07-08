@@ -19,10 +19,10 @@ class CreateComplainsTable extends Migration
             $table->foreign('applicant_id')->references('applicant_id')->on('applications')->onDelete('cascade');
             $table->unsignedBigInteger('application_id');
             $table->foreign('application_id')->references('id')->on('applications')->onDelete('cascade');
-            $table->unsignedBigInteger('buildingOfficer_id');
-            $table->foreign('buildingOfficer_id')->references('buildingOfficer_id')->on('applications')->onDelete('cascade');
+            $table->unsignedBigInteger('BOA_id');
+            $table->foreign('BOA_id')->references('id')->on('users')->onDelete('cascade');
             $table->text('complain');
-            $table->text('BoAcomment')->nullable()->change();
+            $table->text('BoAcomment')->nullable(); 
             $table->integer('status')->unsigned()->default(0);
             $table->timestamps();
         });
