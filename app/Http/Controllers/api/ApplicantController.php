@@ -20,7 +20,7 @@ use Carbon\Carbon;
 
 class ApplicantController extends Controller
 {
-    public function storeApplication(Request $request, $id)
+    public function storeApplication(Request $request)
     {
         $request->validate([
             'city' => 'required|max:255',
@@ -40,13 +40,12 @@ class ApplicantController extends Controller
             'consultingFirmPhone' => 'required',
             'consultingFirmAddress' => 'required',
         ]);
-
+        $id = auth()->user()->id;
 
         //one part of the scheduler to send it the appropurate office 
         $nof = $request['floorNumber'];
         $number_of_floors = (int)$nof;
-        if ($number_of_floors >= 7)
-         {
+        if ($number_of_floors >= 7) {
             $bureau_for_application = $request['sub_city'];
             //selecting building officers from the chosen buraue
             $Building_officer_selector = Role::where('bureau', '=', $bureau_for_application)
@@ -54,7 +53,7 @@ class ApplicantController extends Controller
             $user_id = Role::where('active_applications', '=', $Building_officer_selector)->where('name', '=', 'BO')->first();
             // return $user_id;
             $uid = $user_id->user_id;
-           
+
             //$buildingOfficer = $Building_officer_selector->user_id;
             $application = Application::create([
                 'applicant_id' => $id,
@@ -86,27 +85,26 @@ class ApplicantController extends Controller
                 'house_number' => $request['house_number'],
                 'application_id' => $application->id,
             ]);
-             //Adds Active Application to the Applicant
-             $updater=Role::where('user_id','=',$uid)->first();
-             $updater->active_applications=$updater->active_applications+1;
-             $updater->save();
-             $updater=Role::where('user_id','=',$id)->first();
-             $updater->active_applications=$updater->active_applications+1;
-             $updater->save();
+            //Adds Active Application to the Applicant
+            $updater = Role::where('user_id', '=', $uid)->first();
+            $updater->active_applications = $updater->active_applications + 1;
+            $updater->save();
+            $updater = Role::where('user_id', '=', $id)->first();
+            $updater->active_applications = $updater->active_applications + 1;
+            $updater->save();
 
 
             return new ApplicationResource($application);
-        }
-         else {
+        } else {
             $bureau_for_application = $request['sub_city'];
-            
+
             //selecting building officers from the chosen buraue
             $Building_officer_selector = Role::where('bureau', '=', $bureau_for_application)
                 ->where('name', '=', 'BO')->min('active_applications');
             $user_id = Role::where('active_applications', '=', $Building_officer_selector)->where('name', '=', 'BO')->first();
-        
-            $uid=$user_id->user_id;
-           // return $bureau_for_application;
+
+            $uid = $user_id->user_id;
+            // return $bureau_for_application;
             //$buildingOfficer = $Building_officer_selector->user_id;
             $application = Application::create([
                 'applicant_id' => $id,
@@ -138,52 +136,49 @@ class ApplicantController extends Controller
                 'house_number' => $request['house_number'],
                 'application_id' => $application->id,
             ]);
-             // Time Scheduller
+            // Time Scheduller
 
-             $last_appointment_of_the_day=appointment::select('appointment_time')->max('appointment_time');
-             $last_working_time= date("H:i:s",strtotime($last_appointment_of_the_day));
-             if($last_working_time>= '17:00:00')
-             {
-                 $last_appointment_of_the_day=Carbon::parse($last_appointment_of_the_day);
-                 $last_appointment_of_the_day->addHours(15);
-                 $appointment=appointment::create([
+            $last_appointment_of_the_day = appointment::select('appointment_time')->max('appointment_time');
+            $last_working_time = date("H:i:s", strtotime($last_appointment_of_the_day));
+            if ($last_working_time >= '17:00:00') {
+                $last_appointment_of_the_day = Carbon::parse($last_appointment_of_the_day);
+                $last_appointment_of_the_day->addHours(15);
+                $appointment = appointment::create([
                     'application_id' => $application->id,
-                    'appointment_time'=>$last_appointment_of_the_day,
-                 ]);
-                }
-             else
-             {
-                 $last_appointment_of_the_day=Carbon::parse($last_appointment_of_the_day);
-                 $last_appointment_of_the_day->addMinutes(30);
-                 $appointment=appointment::create([
+                    'appointment_time' => $last_appointment_of_the_day,
+                ]);
+            } else {
+                $last_appointment_of_the_day = Carbon::parse($last_appointment_of_the_day);
+                $last_appointment_of_the_day->addMinutes(30);
+                $appointment = appointment::create([
                     'application_id' => $application->id,
-                    'appointment_time'=>$last_appointment_of_the_day,
-                 ]);
-             }
-             //end
-             $updater=Role::where('user_id','=',$uid)->first();
-             $updater->active_applications=$updater->active_applications+1;
-             $updater->save();
-             $updater=Role::where('user_id','=',$id)->first();
-             $updater->active_applications=$updater->active_applications+1;
-             $updater->save();
-  
+                    'appointment_time' => $last_appointment_of_the_day,
+                ]);
+            }
+            //end
+            $updater = Role::where('user_id', '=', $uid)->first();
+            $updater->active_applications = $updater->active_applications + 1;
+            $updater->save();
+            $updater = Role::where('user_id', '=', $id)->first();
+            $updater->active_applications = $updater->active_applications + 1;
+            $updater->save();
+
             return new ApplicationResource($application);
         }
     }
-    public function viewApplication($id)
+    public function viewApplication()
     {
+        $id = auth()->user()->id;
         $applications = Application::where('applicant_id', $id)->get();
 
         return ApplicationResource::collection($applications);
-      
     }
-    public function viewMyApplication($id)
+    public function viewMyApplication()
     {
-        
+        $id = auth()->user()->id;
         //bo's viewing application assigned to them
-        $my_applications=Application::where('buildingOfficer_id',$id)->get(); 
-        
+        $my_applications = Application::where('buildingOfficer_id', $id)->get();
+
         //$applicants_id =$my_applications->applicant_id;
 
         return ApplicationResource::collection($my_applications);
@@ -191,19 +186,69 @@ class ApplicantController extends Controller
         //on the forntend it will be viewed as table 
         //with details button option it where the value pass applicant_id
         //new Route and functions will be defined for details
-        
+
 
     }
-    public function deleteApplication($id)
+    public function deleteApplication()
     {
+        $id = auth()->user()->id;
         //it is deleting the application 
         $applications = Application::findOrFail($id)->delete();
         // return redirect('/applicant/viewApplication/'.auth()->user()->id);
-        $deleted = 'your application id' . $id . 'successfully deleted ';
+        $deleted = 'your application id ' . $id . 'successfully deleted ';
         return response()->json([
             'Success' => $deleted,
             'applications' => $applications
 
-        ])->redirect('/applicant/viewApplication/' . auth()->user()->id);
+        ]);
+    }
+    public function updateApplication($applicationId)
+    {
+        $this->validate(request(), [
+            'city' => 'required|max:255',
+            'sub_city' => 'required',
+            'special_name' => 'required',
+            'wereda' => 'required',
+            'house_number' => 'required',
+            'constructionType' => 'required',
+            'constructionCondition' => 'required',
+            'estimatedCost' => 'required',
+            'floorNumber' => 'required',
+            'groundFloorNumber' => 'required',
+            'buildingHeight' => 'required',
+            'groundBuildingHeight' => 'required',
+            'consultingFirmName' => 'required',
+            'consultingFirmLevel' => 'required',
+            'consultingFirmPhone' => 'required',
+            'consultingFirmAddress' => 'required',
+        ]);
+        $id = auth()->user()->id;
+        $application = Application::findOrFail($applicationId);
+        if (request('floorNumber') >= 7) {
+            $application->bureau = request('city');
+        } else {
+            $application->bureau = request('sub_city');
+        }
+
+        $application->location->city = request('city');
+        $application->location->sub_city = request('sub_city');
+        $application->location->special_name = request('special_name');
+        $application->location->house_number = request('house_number');
+        $application->constructionType->construction_condition = request('construction_condition');
+        $application->constructionType->construction_type = request('construction_type');
+        $application->constructionType->estimated_cost = request('estimated_cost');
+        $application->constructionType->number_of_floor = request('number_of_floor');
+        $application->constructionType->ground_floor_number = request('ground_floor_number');
+        $application->constructionType->building_height = request('building_height');
+        $application->constructionType->ground_building_height = request('ground_building_height');
+
+        $application->consultingFirm->name = request('consultingFirmName');
+        $application->consultingFirm->phone_number = request('consultingFirmPhone');
+        $application->consultingFirm->level = request('consultingFirmLevel');
+        $application->consultingFirm->address = request('consultingFirmAddress');
+        $application->save();
+        return response()->json([
+            'Success' => 'application successfully updated'
+        ]);
     }
 }
