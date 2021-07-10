@@ -29,14 +29,7 @@ class ComplainController extends Controller
         ]);
 
     }
-    public function Viewmycomplain($id )
-    {
-        # code...
-        $complains=Complain::where('');
-        return response()->json([
-            'complains'=>$complains
-        ]);
-    }
+  
 
     /**
      * Show the form for creating a new resource.
@@ -157,4 +150,25 @@ class ComplainController extends Controller
         return ComplainResource::collection($complains);
 // Front end concept 
     }
+    public function deleteComplain()
+    {
+        $id=auth()->user()->id;
+        //it is deleting the application 
+        $complains = Complain::where('applicant_id',$id)->where('status','0')->delete();
+        // return redirect('/applicant/viewApplication/'.auth()->user()->id);
+        $deleted = 'your application id' . $id . 'successfully deleted ';
+        return response()->json([
+            'Success' => $deleted,
+            'applications' => $complains
+
+        ]);
+    }
+    public function ViewMyComplain()
+    {
+        //
+        $id=auth()->user()->id;
+        $complains =Complain::where('applicant_id','=',$id)->get();
+        return ComplainResource::collection($complains);
+    }
+  
 }

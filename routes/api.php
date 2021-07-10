@@ -53,12 +53,21 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/applicant/viewApplication', 'api\ApplicantController@viewApplication');
     Route::get('/applicant/delete', 'api\ApplicantController@deleteApplication');
     Route::put('/applicant/update/{applicationId}','api\ApplicantController@updateApplication');
+    Route::post('/applicant/submitpc','api\PlanConsentController@store');
 });
 //complain
 Route::post('/applicant/submitComplain/{id}', 'api\ComplainController@store');
 //Route::get('/boa/viewcomplain', 'api\ComplainController@index');
 Route::get('/boa/viewcomplain/{id}', 'api\ComplainController@show');
 //Route::get('/boa/editcomplain/{id}', 'api\ComplainController@edit');
-Route::get('/boa/viewMyComplain/{id}','api\ApplicantController@viewMyComplain');
+Route::get('/boa/viewMyComplain','api\ComplainController@viewMyComplain')->middleware('auth:api');
 Route::get('/boa/editcomplain/{id}','api\ComplainController@edit');
-Route::post('/boa/deletecomplain/{id}','api\ApplicantController@deleteComplain');
+Route::get('/boa/deletecomplain','api\ComplainController@deleteComplain')->middleware('auth:api');
+
+
+//plan consent 
+Route::middleware('auth:api')->group(function()
+    {
+        //Route::post('/applicant/submitpc','api\PlanConsentBOController@store0');
+    }
+);
