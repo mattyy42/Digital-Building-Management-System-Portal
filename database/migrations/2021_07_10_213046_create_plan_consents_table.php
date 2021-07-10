@@ -15,6 +15,9 @@ class CreatePlanConsentsTable extends Migration
     {
         Schema::create('plan__consents', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('applicant_id');
+            $table->foreign('applicant_id')->references('id')->on('users')->onDelete('cascade');
+            $table->string('city');
             $table->string('sub_city');
             $table->string('new_woreda');
             $table->string('street_address');
@@ -30,10 +33,10 @@ class CreatePlanConsentsTable extends Migration
             $table->string('method_of_construction')->nullable(); //built once one by one 
             $table->unsignedBigInteger('application_id')->nullable();
             $table->foreign('application_id')->references('id')->on('applications')->onDelete('cascade');
-            $table->unsignedBigInteger('application_issued_date')->nullable();
-            $table->foreign('application_issued_date')->references('id')->on('applications')->onDelete('cascade');
-            $table->unsignedBigInteger('ground_floor_number')->nullable();
-            $table->foreign('ground_floor_number')->references('id')->on('construction_types');
+            $table->date('application_issued_date')->nullable();
+            //$table->foreign('application_issued_date')->references('id')->on('applications')->onDelete('cascade');
+            //$table->unsignedBigInteger('ground_floor_number')->nullable();
+            $table->string('ground_floor_number');
 
             $table->string('owner_full_name');
             $table->string('reperesentative_full_name')->nullable();

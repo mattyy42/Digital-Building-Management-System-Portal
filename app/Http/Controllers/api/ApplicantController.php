@@ -254,23 +254,5 @@ class ApplicantController extends Controller
             'Success' => 'application successfully updated'
         ]);
     }
-    public function deleteComplain($id)
-    {
-        //it is deleting the application 
-        $complains = Complain::where('applicant_id',$id)->where('status','0')->delete();
-        // return redirect('/applicant/viewApplication/'.auth()->user()->id);
-        $deleted = 'your application id' . $id . 'successfully deleted ';
-        return response()->json([
-            'Success' => $deleted,
-            'applications' => $complains
-
-        ]);
-    }
-    public function ViewMyComplain($id)
-    {
-        //
-        $complains =Complain::where('id','=',$id)->get();
-        return ComplainResource::collection($complains);
-    }
-  
+    
 }
