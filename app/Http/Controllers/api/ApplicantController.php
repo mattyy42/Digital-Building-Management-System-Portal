@@ -47,14 +47,9 @@ class ApplicantController extends Controller
         //one part of the scheduler to send it the appropurate office 
         $nof = $request['floorNumber'];
         $number_of_floors = (int)$nof;
-<<<<<<< HEAD
-        if ($number_of_floors >= 7) {
-            $bureau_for_application = $request['sub_city'];
-=======
         if ($number_of_floors >= 7)
          {
             $bureau_for_application = $request['city'];
->>>>>>> 40809b982ecac6519b8a89cfba5675e44f487ffa
             //selecting building officers from the chosen buraue
             $Building_officer_selector = Role::where('bureau', '=', $bureau_for_application)
                 ->where('name', '=', 'BO')->min('active_applications');
