@@ -108,4 +108,8 @@ class PlanConsentController extends Controller
     {
         //
     }
+    public function applicantViewPlanConsent(){
+        $id=auth()->user()->id;
+        
+    }
 }
