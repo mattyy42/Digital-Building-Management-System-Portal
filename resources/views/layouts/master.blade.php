@@ -189,7 +189,7 @@
           </div>
           <div class="info">
             <a href="#" class="d-block">{{auth()->user()->first_name}}</a>
-            <a href="#" class="d-block">{{auth()->user()->last_name}}</a>
+            <a href="#" class="d-block">{{auth()->  ()->last_name}}</a>
           </div>
         </div>
 

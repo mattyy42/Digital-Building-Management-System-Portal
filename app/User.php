@@ -43,6 +43,9 @@ class User extends Authenticatable
     public function application(){
         return $this->hasMany(Application::class);
     }
+    public function Plan_Consent_BO(){
+        return $this->hasMany(Plan_Consent_BO::class);
+    }
     public function complain()
     {
         # code...

@@ -30,5 +30,10 @@ class Application extends Model
      {
          return $this->hasOne(appointment::class);
      }
+     public function Plan_Consent()
+     {
+         # code...
+         return $this->belongsTo(Plan_Consent::class);
+     }
     
 }

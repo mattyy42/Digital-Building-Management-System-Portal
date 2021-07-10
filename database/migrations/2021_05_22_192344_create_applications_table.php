@@ -18,7 +18,6 @@ class CreateApplicationsTable extends Migration
             $table->string('application_stutus')->nullable();
             $table->unsignedBigInteger('applicant_id');
             $table->unsignedBigInteger('buildingOfficer_id')->nullable();
-              
             $table->foreign('applicant_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('buildingOfficer_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('bureau');
