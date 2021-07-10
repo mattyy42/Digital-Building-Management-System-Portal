@@ -44,6 +44,11 @@ class CreatePlanConsentsTable extends Migration
             $table->string('mobile_number');
             $table->string('TIN_number')->nullable();
 
+            
+            $table->unsignedBigInteger('buildingOfficer_id')->nullable();
+            $table->foreign('buildingOfficer_id')->references('id')->on('users')->onDelete('cascade');
+            $table->string('bureau');
+
             $table->timestamps();
         });
     }
@@ -58,3 +63,4 @@ class CreatePlanConsentsTable extends Migration
         Schema::dropIfExists('plan__consents');
     }
 }
+    
