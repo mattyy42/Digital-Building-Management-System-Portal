@@ -53,7 +53,11 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/applicant/viewApplication', 'api\ApplicantController@viewApplication');
     Route::get('/applicant/delete', 'api\ApplicantController@deleteApplication');
     Route::put('/applicant/update/{applicationId}','api\ApplicantController@updateApplication');
+    //plan Consent
     Route::post('/applicant/submitpc','api\PlanConsentController@store');
+    Route::put('/applicant/updatepc/{id}','api\PlanConsentController@updatePlanConsent');
+    Route::get('/applicant/viewpc','api\PlanConsentController@applicantViewPlanConsent');
+    Route::get('/bo/viewpc','api\PlanConsentController@bOViewPlanConsent');
 });
 //complain
 Route::post('/applicant/submitComplain/{id}', 'api\ComplainController@store');

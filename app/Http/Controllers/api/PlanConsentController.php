@@ -4,7 +4,7 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
-
+use App\Http\Requests\PlanConsentRequest;
 use App\Plan_Consent;
 use App\Role;
 use Illuminate\Http\Request;
@@ -38,60 +38,44 @@ class PlanConsentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PlanConsentRequest $request)
     {
         //
-        $request->validate([
-            'owner_full_name'=>'required',
-            'city'=>'required',
-            'phone_number'=>'required',
-            'mobile_number'=>'required',
-            'sub_city'=>'required',
-            'new_woreda'=>'required',
-            'street_address'=>'required',
-            'house_number'=>'required',
-            'ownership_authentication_number'=>'required',
-            'ownership_authentication_type'=>'required',
-            'ownership_authentication_issued_date'=>'required',
-            'name_stated_on_ownership_authentication'=>'required',
-            'previous_service'=>'required',
-            'type_of_construction'=>'required',
-            'ground_floor_number'=>'required',
-        ]);
+        
         $id = auth()->user()->id;
         $nof = $request['ground_floor_number'];
-        
+
         $number_of_floors = (int)$nof;
         //print('x');
-        if($number_of_floors>=7){
+        if ($number_of_floors >= 7) {
             $bureau_for_application = $request['city'];
             $Building_officer_selector = Role::where('bureau', '=', $bureau_for_application)
                 ->where('name', '=', 'BO')->min('active_applications');
-           // return $bureau_for_application;
+            // return $bureau_for_application;
             $user_id = Role::where('active_applications', '=', $Building_officer_selector)->where('name', '=', 'BO')->first();
-                // return $user_id;
+            // return $user_id;
             $uid = $user_id->user_id;
-            $plan_Consent=Plan_Consent::create([
+            $plan_Consent = Plan_Consent::create([
                 'applicant_id' => $id,
-                'city'=>$request['city'],
-                'sub_city'=>$request['sub_city'],
-                'new_woreda'=>$request['new_woreda'],
-                'street_address'=>$request['street_address'],
-                'house_number'=>$request['house_number'],
-                'ownership_authentication_number'=>$request['ownership_authentication_number'],
-                'ownership_authentication_type'=>$request['ownership_authentication_type'],
-                'ownership_authentication_issued_date'=>$request['ownership_authentication_issued_date'],
-                'name_stated_on_ownership_authentication'=>$request['name_stated_on_ownership_authentication'],
-                'previous_service'=>$request['previous_service'],
-                'type_of_construction'=>$request['type_of_construction'],
-                'application_id'=>$request['application_id'],
-                'application_issued_date'=>$request['application_issued_date'],
-                'ground_floor_number'=>$request['ground_floor_number'],
-                'owner_full_name'=>$request['owner_full_name'],
-                'reperesentative_full_name'=>$request['reperesentative_full_name'],
-                'phone_number'=>$request['phone_number'],
-                'mobile_number'=>$request['mobile_number'],
-                'TIN_number'=>$request['TIN_number'],
+                'city' => $request['city'],
+                'sub_city' => $request['sub_city'],
+                'new_woreda' => $request['new_woreda'],
+                'street_address' => $request['street_address'],
+                'house_number' => $request['house_number'],
+                'ownership_authentication_number' => $request['ownership_authentication_number'],
+                'ownership_authentication_type' => $request['ownership_authentication_type'],
+                'ownership_authentication_issued_date' => $request['ownership_authentication_issued_date'],
+                'name_stated_on_ownership_authentication' => $request['name_stated_on_ownership_authentication'],
+                'previous_service' => $request['previous_service'],
+                'type_of_construction' => $request['type_of_construction'],
+                'application_id' => $request['application_id'],
+                'application_issued_date' => $request['application_issued_date'],
+                'ground_floor_number' => $request['ground_floor_number'],
+                'owner_full_name' => $request['owner_full_name'],
+                'reperesentative_full_name' => $request['reperesentative_full_name'],
+                'phone_number' => $request['phone_number'],
+                'mobile_number' => $request['mobile_number'],
+                'TIN_number' => $request['TIN_number'],
                 'bureau' => $bureau_for_application,
                 'buildingOfficer_id' => $uid,
 
@@ -103,37 +87,36 @@ class PlanConsentController extends Controller
             $updater = Role::where('user_id', '=', $id)->first();
             $updater->active_applications = $updater->active_applications + 1;
             $updater->save();
-           return $plan_Consent;
-        }
-        else{
+            return $plan_Consent;
+        } else {
             $bureau_for_application = $request['sub_city'];
             $Building_officer_selector = Role::where('bureau', '=', $bureau_for_application)
                 ->where('name', '=', 'BO')->min('active_applications');
-           // return $bureau_for_application;
+            // return $bureau_for_application;
             $user_id = Role::where('active_applications', '=', $Building_officer_selector)->where('name', '=', 'BO')->first();
-                // return $user_id;
+            // return $user_id;
             $uid = $user_id->user_id;
-            $plan_Consent=Plan_Consent::create([
+            $plan_Consent = Plan_Consent::create([
                 'applicant_id' => $id,
-                'city'=>$request['city'],
-                'sub_city'=>$request['sub_city'],
-                'new_woreda'=>$request['new_woreda'],
-                'street_address'=>$request['street_address'],
-                'house_number'=>$request['house_number'],
-                'ownership_authentication_number'=>$request['ownership_authentication_number'],
-                'ownership_authentication_type'=>$request['ownership_authentication_type'],
-                'ownership_authentication_issued_date'=>$request['ownership_authentication_issued_date'],
-                'name_stated_on_ownership_authentication'=>$request['name_stated_on_ownership_authentication'],
-                'previous_service'=>$request['previous_service'],
-                'type_of_construction'=>$request['type_of_construction'],
-                'application_id'=>$request['application_id'],
-                'application_issued_date'=>$request['application_issued_date'],
-                'ground_floor_number'=>$request['ground_floor_number'],
-                'owner_full_name'=>$request['owner_full_name'],
-                'reperesentative_full_name'=>$request['reperesentative_full_name'],
-                'phone_number'=>$request['phone_number'],
-                'mobile_number'=>$request['mobile_number'],
-                'TIN_number'=>$request['TIN_number'],
+                'city' => $request['city'],
+                'sub_city' => $request['sub_city'],
+                'new_woreda' => $request['new_woreda'],
+                'street_address' => $request['street_address'],
+                'house_number' => $request['house_number'],
+                'ownership_authentication_number' => $request['ownership_authentication_number'],
+                'ownership_authentication_type' => $request['ownership_authentication_type'],
+                'ownership_authentication_issued_date' => $request['ownership_authentication_issued_date'],
+                'name_stated_on_ownership_authentication' => $request['name_stated_on_ownership_authentication'],
+                'previous_service' => $request['previous_service'],
+                'type_of_construction' => $request['type_of_construction'],
+                'application_id' => $request['application_id'],
+                'application_issued_date' => $request['application_issued_date'],
+                'ground_floor_number' => $request['ground_floor_number'],
+                'owner_full_name' => $request['owner_full_name'],
+                'reperesentative_full_name' => $request['reperesentative_full_name'],
+                'phone_number' => $request['phone_number'],
+                'mobile_number' => $request['mobile_number'],
+                'TIN_number' => $request['TIN_number'],
                 'bureau' => $bureau_for_application,
                 'buildingOfficer_id' => $uid,
 
@@ -145,11 +128,11 @@ class PlanConsentController extends Controller
             $updater = Role::where('user_id', '=', $id)->first();
             $updater->active_applications = $updater->active_applications + 1;
             $updater->save();
-           return new PlanConsentResource($plan_Consent);
+            return new PlanConsentResource($plan_Consent);
         }
     }
-        
-    
+
+
 
     /**
      * Display the specified resource.
@@ -195,8 +178,40 @@ class PlanConsentController extends Controller
     {
         //
     }
-    public function applicantViewPlanConsent(){
-        $id=auth()->user()->id;
-        
+    public function applicantViewPlanConsent()
+    {
+        $id = auth()->user()->id;
+        $planConsent = Plan_Consent::where('applicant_id', $id)->get();
+        return PlanConsentResource::collection($planConsent);
+    }
+    public function bOViewPlanConsent()
+    {
+        $id = auth()->user()->id;
+        $planConsent = Plan_Consent::where('buildingOfficer_id', $id)->get();
+        return PlanConsentResource::collection($planConsent);
+    }
+    public function updatePlanConsent(PlanConsentRequest $request, $id)
+    {
+        $planConsent = Plan_Consent::findOrFail($id);
+        $planConsent->update(
+            $request->only(
+                'owner_full_name',
+                'city',
+                'phone_number',
+                'mobile_number',
+                'sub_city',
+                'new_woreda',
+                'street_address',
+                'house_number',
+                'ownership_authentication_number',
+                'ownership_authentication_type',
+                'ownership_authentication_issued_date',
+                'name_stated_on_ownership_authentication',
+                'previous_service',
+                'type_of_construction',
+                'ground_floor_number',
+            ),
+        );
+        return new PlanConsentResource($planConsent);
     }
 }
