@@ -59,17 +59,13 @@ class PlanConsentController extends Controller
             'ground_floor_number'=>'required',
         ]);
         $id = auth()->user()->id;
-        $nof = $request['ground_floor_number'];
-        
+        $nof = $request['ground_floor_number']; 
         $number_of_floors = (int)$nof;
-        //print('x');
         if($number_of_floors>=7){
             $bureau_for_application = $request['city'];
             $Building_officer_selector = Role::where('bureau', '=', $bureau_for_application)
                 ->where('name', '=', 'BO')->min('active_applications');
-           // return $bureau_for_application;
             $user_id = Role::where('active_applications', '=', $Building_officer_selector)->where('name', '=', 'BO')->first();
-                // return $user_id;
             $uid = $user_id->user_id;
             $plan_Consent=Plan_Consent::create([
                 'applicant_id' => $id,
@@ -94,16 +90,15 @@ class PlanConsentController extends Controller
                 'TIN_number'=>$request['TIN_number'],
                 'bureau' => $bureau_for_application,
                 'buildingOfficer_id' => $uid,
-
-
             ]);
+             
             $updater = Role::where('user_id', '=', $uid)->first();
             $updater->active_applications = $updater->active_applications + 1;
             $updater->save();
             $updater = Role::where('user_id', '=', $id)->first();
             $updater->active_applications = $updater->active_applications + 1;
             $updater->save();
-           return $plan_Consent;
+            return new PlanConsentResource($plan_Consent);
         }
         else{
             $bureau_for_application = $request['sub_city'];

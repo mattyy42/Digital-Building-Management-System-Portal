@@ -68,6 +68,6 @@ Route::get('/boa/deletecomplain','api\ComplainController@deleteComplain')->middl
 //plan consent 
 Route::middleware('auth:api')->group(function()
     {
-        //Route::post('/applicant/submitpc','api\PlanConsentBOController@store0');
+        Route::get('/bo/viewpc','api\PlanConsentBOController@index');
     }
 );

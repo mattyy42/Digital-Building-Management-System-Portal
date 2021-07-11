@@ -48,6 +48,7 @@ class CreatePlanConsentsTable extends Migration
             $table->unsignedBigInteger('buildingOfficer_id')->nullable();
             $table->foreign('buildingOfficer_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('bureau');
+            $table->integer('status')->default(0);//0 is pending 1 accepted 2 tejected 
 
             $table->timestamps();
         });
