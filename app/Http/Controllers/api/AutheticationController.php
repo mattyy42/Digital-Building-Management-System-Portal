@@ -13,38 +13,28 @@ use Illuminate\Http\Request;
 
 class AutheticationController extends Controller
 {
-    public function register(Request $request)
+    public function register(Request $data)
     {
-        $validator = validate($request(), [
+        $data->validate([
             'email' => 'required|unique:users',
             'first_name' => 'required', 'string',
             'last_name' => 'required', 'string',
             'password' => 'required|min:6', 'confirmed',
             'phone_number' => 'required|unique:users'
         ]);
-        if ($validator->fails()) {
-            return response()->json(
-                [
-                    'success' => false,
-                    'message' => $validator->message()->toArray()
-                ],
-                500
-            );
-        }
         $createUser = User::create([
-            'first_name' => $request['first_name'],
-            'last_name' => $request['last_name'],
-            'phone_number' => $request['phone_number'],
-            'email' => $request['email'],
-            'password' => Hash::make($request['password']),
+            'first_name' => $data['first_name'],
+            'last_name' => $data['last_name'],
+            'phone_number' => $data['phone_number'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
         ]);
         $createrole = Role::create([
             'name' => 'applicant',
             'user_id' => $createUser['id'],
         ]);
 
-        $token = $createUser->createToken('Personal Access Token')->accessToken;
-        return response()->json(['success' => true, 'message' => 'Registration is successful'], 200);
+        return response()->json(['sucess' => true, 'msg' => 'Registration is successfull'], 200);
     }
     public function login(Request $request)
     {
@@ -59,7 +49,7 @@ class AutheticationController extends Controller
                 'user' => auth()->user()
             ]);
         } else {
-            return response()->json(['success' => false, 'message' => 'Incorrect Email or Password please try again'], 401);
+            return response()->json(['error' => 'Incorrect Email or Password please try again'], 401);
         }
     }
 
