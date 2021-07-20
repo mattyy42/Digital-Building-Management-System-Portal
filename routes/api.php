@@ -45,7 +45,7 @@ Route::get('/admin/showAllBoard', 'api\AdminController@showAllBoard');
 //use api/register
 Route::post('/register', 'api\AutheticationController@register');
 Route::post('/login', 'api\AutheticationController@login');
-Route::get('/logout', 'api\AutheticationController@logout')->middleware('auth:api');
+Route::get('/logout', 'api\AutheticationController@logout');
 
 //application
 Route::middleware('auth:api')->group(function () {

@@ -45,11 +45,12 @@ class AutheticationController extends Controller
         if (auth()->attempt($credentials)) {
             $token = auth()->user()->createToken('Personal Access Token')->accessToken;
             return response()->json([
+                'success' => true,
                 'token' => $token,
-                'user' => auth()->user()
-            ]);
+                'user' => new UserResource(auth()->user()),
+            ], 200);
         } else {
-            return response()->json(['error' => 'Incorrect Email or Password please try again'], 401);
+            return response()->json(['success' => false, 'error' => 'Incorrect Email or Password please try again'], 401);
         }
     }
 
