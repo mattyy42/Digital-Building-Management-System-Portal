@@ -42,6 +42,8 @@ Route::post('/admin/registerBoardOfApplicance', 'api\AdminController@registerBoa
 Route::get('/admin/deleteBoard', 'api\AdminController@registerBoard');
 Route::get('/admin/showAllBoard', 'api\AdminController@showAllBoard');
 
+// fetch burau
+Route::get('/getAllBureau','api\BureauController@allBureau');
 //use api/register
 Route::post('/register', 'api\AutheticationController@register');
 Route::post('/login', 'api\AutheticationController@login');

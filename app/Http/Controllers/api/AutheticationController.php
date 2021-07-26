@@ -43,10 +43,10 @@ class AutheticationController extends Controller
             'password' => $request->password,
         ];
         if (auth()->attempt($credentials)) {
-            $token = auth()->user()->createToken('Personal Access Token')->accessToken;
+            $token = auth()->user()->createToken('Personal Access Token');
             return response()->json([
                 'success' => true,
-                'token' => $token,
+                'token' => $token->accessToken,
                 'user' => new UserResource(auth()->user()),
             ], 200);
         } else {

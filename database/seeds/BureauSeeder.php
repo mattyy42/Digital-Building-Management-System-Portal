@@ -12,9 +12,16 @@ class BureauSeeder extends Seeder
      */
     public function run()
     {
-        $bureau = new Bureau();
-        $bureau->Bureau = "ABPB";
-        $bureau->subcity = "Arada";
-        $bureau->save();
+        DB::table('bureaus')->insert([
+            [
+                'Bureau'=>'ABPB',
+                'subcity'=>'Arada',
+            ],
+            [
+                'Bureau'=>'YBPB',
+                'subcity'=>'Yeka',
+            ],
+
+        ]);
     }
 }
