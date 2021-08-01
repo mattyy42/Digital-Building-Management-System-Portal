@@ -31,16 +31,19 @@ Route::middleware('auth:api')->group(function () {
 
 
 //admin routes   use api/
+Route::get('admin/getUserById/{id}','api\AdminController@showUser');
 
 Route::get('admin/showAllApplicant', 'api\AdminController@showAllApplicant');
 
 Route::post('/admin/registerBuildingOfficer', 'api\AdminController@registerBuildingOfficer');
 Route::get('/admin/deleteBuildingOfficer/{id}', 'api\AdminController@deleteOfficer');
 Route::get('/admin/showAllOfficer', 'api\AdminController@showAllBuildingOfficer');
+Route::put('/admin/editBO','api\AdminController@edit');
 
 Route::post('/admin/registerBoardOfApplicance', 'api\AdminController@registerBoard');
 Route::get('/admin/deleteBoard', 'api\AdminController@registerBoard');
 Route::get('/admin/showAllBoard', 'api\AdminController@showAllBoard');
+Route::put('/admin/editBA','api\AdminController@edit');
 
 // fetch burau
 Route::get('/getAllBureau','api\BureauController@allBureau');

@@ -15,7 +15,8 @@ class BureauResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'bureau'=>$this->Bureau,
+            'bureau' => $this->Bureau,
+            'subcity' => $this->subcity,
         ];
     }
 }

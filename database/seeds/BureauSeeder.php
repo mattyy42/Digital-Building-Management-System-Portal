@@ -14,14 +14,45 @@ class BureauSeeder extends Seeder
     {
         DB::table('bureaus')->insert([
             [
-                'Bureau'=>'ABPB',
-                'subcity'=>'Arada',
+                'Bureau' => 'AKBPB',
+                'subcity' => 'Akakikality',
             ],
             [
-                'Bureau'=>'YBPB',
-                'subcity'=>'Yeka',
+                'Bureau' => 'ABPB',
+                'subcity' => 'Arada',
             ],
-
+            [
+                'Bureau' => 'BBPB',
+                'subcity' => 'Bole',
+            ],
+            [
+                'Bureau' => 'GBPB',
+                'subcity' => 'Gullele',
+            ],
+            [
+                'Bureau' => 'KBPB',
+                'subcity' => 'Kirkos',
+            ],
+            [
+                'Bureau' => 'KKBPB',
+                'subcity' => 'kolfekeranio',
+            ],
+            [
+                'Bureau' => 'LKBPB',
+                'subcity' => 'Lemi krau',
+            ],
+            [
+                'Bureau' => 'KBPB',
+                'subcity' => 'Lideta',
+            ],
+            [
+                'Bureau' => 'NLBPB',
+                'subcity' => 'Nifas silk-lafto',
+            ],
+            [
+                'Bureau' => 'YBPB',
+                'subcity' => 'Yeka',
+            ],
         ]);
     }
 }

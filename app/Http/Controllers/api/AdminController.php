@@ -14,6 +14,10 @@ use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
+    public function showUser($id){
+        $user=User::findOrFail($id);
+        return UserResource($user);
+    }
     public function showAllApplicant()
     {
         $applicantId = Role::where('name', 'applicant')->get();
@@ -25,7 +29,7 @@ class AdminController extends Controller
     }
     public function showAllBuildingOfficer()
     {
-        $applicantId = Role::where('name', 'buildingOfficer')->get();
+        $applicantId = Role::where('name', 'BO')->get();
         $users = [];
         foreach ($applicantId as $applicant) {
             array_push($users, $applicant->user);
@@ -72,12 +76,31 @@ class AdminController extends Controller
         );
     }
 
-
+    public function edit(Request $request){
+        $request->validate([
+            'id'=>'required',
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'phone_number' => 'required',
+            'email' => 'required|unique:users|max:255|email',
+            'password' => 'required|min:6',
+            'role' => 'required',
+            'bureau' => 'required'
+        ]);
+        $editedUser=User::findOrFail($request->id);
+        $editedUser->first_name=$request->first_name;
+        $editedUser->last_name=$request->last_name;
+        $editedUser->password=Hash::make($request->password);
+        $editedUser->email=$request->email;
+        $editedUser->role->name=$request->role;
+        $editedUser->role->bureau=$request->bureau;
+        $editedUser->save();
+        return UserResource($editedUser);
+    }
 
     public function showAllBoard()
     {
-
-        $applicantId = Role::where('name', 'boardOfAppliance')->get();
+        $applicantId = Role::where('name', 'BA')->get();
         $users = [];
         foreach ($applicantId as $applicant) {
             array_push($users, $applicant->user);
@@ -88,7 +111,7 @@ class AdminController extends Controller
     public function registerBoard(Request $request)
     {
         $request->validate([
-            'first_name' => 'required|max:255',
+            'first_name' => 'required',
             'last_name' => 'required',
             'phone_number' => 'required',
             'email' => 'required|unique:users|max:255|email',
