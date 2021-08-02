@@ -43,7 +43,7 @@ Route::put('/admin/editBO','api\AdminController@edit');
 Route::post('/admin/registerBoardOfApplicance', 'api\AdminController@registerBoard');
 Route::get('/admin/deleteBoard', 'api\AdminController@registerBoard');
 Route::get('/admin/showAllBoard', 'api\AdminController@showAllBoard');
-Route::put('/admin/editBA','api\AdminController@edit');
+//Route::put('/admin/editBA','api\AdminController@edit');
 
 // fetch burau
 Route::get('/getAllBureau','api\BureauController@allBureau');
