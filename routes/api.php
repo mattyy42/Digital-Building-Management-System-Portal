@@ -36,7 +36,7 @@ Route::get('admin/getUserById/{id}','api\AdminController@showUser');
 Route::get('admin/showAllApplicant', 'api\AdminController@showAllApplicant');
 
 Route::post('/admin/registerBuildingOfficer', 'api\AdminController@registerBuildingOfficer');
-Route::get('/admin/deleteBuildingOfficer/{id}', 'api\AdminController@deleteOfficer');
+Route::delete('/admin/deleteBuildingOfficer/{id}', 'api\AdminController@deleteOfficer');
 Route::get('/admin/showAllOfficer', 'api\AdminController@showAllBuildingOfficer');
 Route::put('/admin/editBO','api\AdminController@edit');
 
@@ -47,6 +47,7 @@ Route::get('/admin/showAllBoard', 'api\AdminController@showAllBoard');
 
 // fetch burau
 Route::get('/getAllBureau','api\BureauController@allBureau');
+Route::post('/addBureau','api\BureauController@createBureau');
 //use api/register
 Route::post('/register', 'api\AutheticationController@register');
 Route::post('/login', 'api\AutheticationController@login');

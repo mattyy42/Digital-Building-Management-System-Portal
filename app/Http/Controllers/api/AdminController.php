@@ -65,9 +65,9 @@ class AdminController extends Controller
         $user = User::findOrFail($id)->delete();
         $role = Role::where('user_id', $id)->delete();
         //session()->flash('message', 'The Building officer user is deleted successfully');
-        return redirect(
-            []
-        );
+        return response()->json([
+            'message'=>'building officer id deleted successfully'
+        ]);
     }
 
     public function edit(Request $request)

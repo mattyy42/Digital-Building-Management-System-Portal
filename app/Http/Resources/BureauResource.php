@@ -15,6 +15,7 @@ class BureauResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'id'=>$this->id,
             'bureau' => $this->Bureau,
             'subcity' => $this->subcity,
         ];
