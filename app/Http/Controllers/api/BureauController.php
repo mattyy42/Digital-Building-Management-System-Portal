@@ -18,9 +18,30 @@ class BureauController extends Controller
     {
         $data = $request->validate([
             'subcity' => 'required',
-            'bureau' => 'required'
+            'Bureau' => 'required'
         ]);
         $bureau=Bureau::create($data);
         return new BureauResource($bureau);
+    }
+    public function showBureau($id){
+        $data=Bureau::findOrFail($id);
+        return new BureauResource($data);
+    }
+    public function edit(Request $request){
+        $data = $request->validate([
+            'id'=>'required',
+            'subcity' => 'required',
+            'Bureau' => 'required'
+        ]);
+        $bureau=Bureau::findOrFail($request->id);
+        $bureau->update($data);
+        return new BureauResource($bureau);
+    }
+    public function delete($id)
+    {
+        $bureau=Bureau::findOrFail($id)->delete();
+        return response()->json([
+            'message'=>'Bureau is deleted successfully'
+        ]);
     }
 }

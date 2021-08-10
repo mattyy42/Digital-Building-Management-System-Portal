@@ -7,7 +7,7 @@ use App\Http\Resources\UserResource;
 use App\User;
 use App\Role;
 use Illuminate\Support\Facades\Hash;
-
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -54,16 +54,17 @@ class AutheticationController extends Controller
         }
     }
 
-    public function updateProfile()
+    public function updateProfile($id)
     {
-        $user = auth()->user();
+       // $user = auth()->user();
         $this->validate(request(), [
-            'email' => 'required|unique:users',
+            'email' => ['required', 'email', 'max:255', Rule::unique('users')->ignore($id)],
             'first_name' => 'required',
             'last_name' => 'required',
             'password' => 'required|min:6',
             'phone_number' => 'required|unique:users'
         ]);
+        $user=User::findOrFail($id);
         $user->first_name = request('first_name');
         $user->email = request('email');
         $user->password = bcrypt(request('password'));

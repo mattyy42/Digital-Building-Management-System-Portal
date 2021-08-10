@@ -23,13 +23,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 Route::middleware('auth:api')->group(function () {
     //profile update
-    Route::patch('/user/profileChange', 'api\AutheticationController@updateProfile');
+   
 
     //buldingofficer
     Route::get('/buldingofficer/viewApplication', 'api\ApplicantController@viewMyApplication');
 });
 
-
+Route::patch('/user/profileChange/{id}', 'api\AutheticationController@updateProfile');
 //admin routes   use api/
 Route::get('admin/getUserById/{id}','api\AdminController@showUser');
 
@@ -43,11 +43,14 @@ Route::put('/admin/editBO','api\AdminController@edit');
 Route::post('/admin/registerBoardOfApplicance', 'api\AdminController@registerBoard');
 Route::get('/admin/deleteBoard', 'api\AdminController@registerBoard');
 Route::get('/admin/showAllBoard', 'api\AdminController@showAllBoard');
-//Route::put('/admin/editBA','api\AdminController@edit');
+Route::put('/admin/editBA','api\AdminController@edit');
 
 // fetch burau
 Route::get('/getAllBureau','api\BureauController@allBureau');
 Route::post('/addBureau','api\BureauController@createBureau');
+Route::delete('/deleteBureau/{id}','api\BureauController@delete');
+Route::get('/getBureau/{id}','api\BureauController@showBureau');
+Route::put('/editBureau','api\BureauController@edit');
 //use api/register
 Route::post('/register', 'api\AutheticationController@register');
 Route::post('/login', 'api\AutheticationController@login');
