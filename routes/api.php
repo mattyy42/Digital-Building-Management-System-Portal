@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\ApplicantController;
 use App\Application;
 use App\complain;
+use App\Events\ApplicationAssignedEvenet;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,6 +19,11 @@ use App\complain;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::get('/test', function ()
+{
+  event(new ApplicationAssignedEvenet('test message'));
+
+});
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
