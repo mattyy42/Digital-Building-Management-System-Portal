@@ -64,7 +64,7 @@ class PlanConsentController extends Controller
                 'name_stated_on_ownership_authentication' => $request['name_stated_on_ownership_authentication'],
                 'previous_service' => $request['previous_service'],
                 'type_of_construction' => $request['type_of_construction'],
-                 'application_id' => $request['application_id'],
+                'application_id' => $request['application_id'],
                 'application_issued_date' => $request['application_issued_date'],
                 'ground_floor_number' => $request['ground_floor_number'],
                 'owner_full_name' => $request['owner_full_name'],
@@ -185,6 +185,26 @@ class PlanConsentController extends Controller
         $id = auth()->user()->id;
         $planConsent = Plan_Consent::where('buildingOfficer_id', $id)->get();
         return PlanConsentResource::collection($planConsent);
+    }
+    public function acceptPlanConsent($id){
+        $uid=auth()->user()->id;
+        $planConsent=Plan_Consent::findOrFail($id);
+        if($planConsent->status == 0){
+            $planConsent->status=1;
+        }
+        $planConsent->save();
+        $planConsents = Plan_Consent::where('buildingOfficer_id', $uid)->get();
+        return PlanConsentResource::collection($planConsents);
+    }
+    public function rejectPlanConsent($id){
+        $uid=auth()->user()->id;
+        $planConsent=Plan_Consent::findOrFail($id);
+        if($planConsent->status == 1){
+            $planConsent->status=0;
+        }
+        $planConsent->save();
+        $planConsents = Plan_Consent::where('buildingOfficer_id', $uid)->get();
+        return PlanConsentResource::collection($planConsents);
     }
     public function updatePlanConsent(PlanConsentRequest $request, $id)
     {

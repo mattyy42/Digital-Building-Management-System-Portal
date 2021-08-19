@@ -63,16 +63,18 @@ class ComplainController extends Controller
         {
             $bureau_type=Application::where('id',$id)->pluck('bureau')->first();
             $board_of_appliance_id=Role::where('bureau',$bureau_type)->pluck('user_id')->first();
+            
             $complain=Complain::create([
                 'applicant_id'=>$applicant_id,
                 'application_id'=>$id,
                 'BOA_id'=>$board_of_appliance_id,
                 'complain'=>$request['complain'],
-                'status'=>$request['status'],
+               
             ]);
         }
         else {
             return response()->json([ 
+                
                 'complain' => 'Complain already Submitted'
             ]);
         }

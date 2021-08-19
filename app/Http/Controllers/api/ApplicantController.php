@@ -169,6 +169,9 @@ class ApplicantController extends Controller
             return new ApplicationResource($application);
         }
     }
+    
+    
+
     public function viewApplication()
     {
         $id = auth()->user()->id;

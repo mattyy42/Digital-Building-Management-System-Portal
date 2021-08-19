@@ -41,9 +41,9 @@ class AdminController extends Controller
     public function registerBuildingOfficer(Request $request)
     {
         $data = $request->validate([
-            'first_name' => 'required|max:255',
+            'first_name' => 'required|max:255|string',
             'last_name' => 'required',
-            'phone_number' => 'required',
+            'phone_number' => 'required|max:13',
             'email' => 'required|unique:users|max:255|email',
             'password' => 'required|min:6',
             'role' => 'required',

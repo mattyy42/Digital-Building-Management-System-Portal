@@ -14,6 +14,12 @@ class PlanConsentResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'bureau' => $this->bureau,
+            'applicant' => new UserResource($this->applicant),
+            'buildingOfficer' => new UserResource($this->buildingOfficer),
+            'status' => $this->status,
+        ];
     }
 }
