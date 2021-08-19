@@ -49,7 +49,13 @@ class AdminController extends Controller
             'role' => 'required',
             'bureau' => 'required'
         ]);
-        $buildingOfficer = User::create($data);
+        $buildingOfficer =  User::create([
+            'first_name' => $request['first_name'],
+            'last_name' => $request['last_name'],
+            'phone_number' => $request['phone_number'],
+            'email' => $request['email'],
+            'password' => Hash::make($request['password']),
+        ]);
         $createrole = Role::create([
             'name' => $request['role'],
             'user_id' => $buildingOfficer['id'],
