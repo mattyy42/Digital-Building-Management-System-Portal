@@ -23,5 +23,11 @@ class complain extends Model
         # code...
         return $this->belongsTo(User::class);
     }
+    public function applicant(){
+        return $this->belongsTo(User::class,'applicant_id');
+    }
 
+    public function board(){
+        return $this->belongsTo(User::class,'BOA_id');
+    }
 }

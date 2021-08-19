@@ -17,8 +17,8 @@ class ComplainResource extends JsonResource
         return [
             'id'=> $this->id,
             'complain'=> $this->complain,
-            'application'=> new ApplicationResource($this->application),
-            
+            'applicant' => new UserResource($this->applicant),
+            'board' => new UserResource($this->board),    
         ];
         
     }

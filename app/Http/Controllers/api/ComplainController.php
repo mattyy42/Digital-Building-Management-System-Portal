@@ -165,6 +165,11 @@ class ComplainController extends Controller
 
         ]);
     }
+    public function showComplain(){
+        $id=auth()->user()->id;
+        $complains =Complain::where('applicant_id','=',$id)->get();
+        return ComplainResource::collection($complains);
+    }
     public function ViewMyComplain()
     {
         //
