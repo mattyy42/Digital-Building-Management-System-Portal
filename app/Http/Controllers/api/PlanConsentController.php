@@ -64,7 +64,7 @@ class PlanConsentController extends Controller
                 'name_stated_on_ownership_authentication' => $request['name_stated_on_ownership_authentication'],
                 'previous_service' => $request['previous_service'],
                 'type_of_construction' => $request['type_of_construction'],
-                'application_id' => $request['application_id'],
+                 'application_id' => $request['application_id'],
                 'application_issued_date' => $request['application_issued_date'],
                 'ground_floor_number' => $request['ground_floor_number'],
                 'owner_full_name' => $request['owner_full_name'],
@@ -105,7 +105,7 @@ class PlanConsentController extends Controller
                 'name_stated_on_ownership_authentication' => $request['name_stated_on_ownership_authentication'],
                 'previous_service' => $request['previous_service'],
                 'type_of_construction' => $request['type_of_construction'],
-                'application_id' => $request['application_id'],
+                 'application_id' => $request['application_id'],
                 'application_issued_date' => $request['application_issued_date'],
                 'ground_floor_number' => $request['ground_floor_number'],
                 'owner_full_name' => $request['owner_full_name'],
@@ -188,26 +188,26 @@ class PlanConsentController extends Controller
     }
     public function updatePlanConsent(PlanConsentRequest $request, $id)
     {
-        $planConsent = Plan_Consent::findOrFail($id);
-        $planConsent->update(
-            $request->only(
-                'owner_full_name',
-                'city',
-                'phone_number',
-                'mobile_number',
-                'sub_city',
-                'new_woreda',
-                'street_address',
-                'house_number',
-                'ownership_authentication_number',
-                'ownership_authentication_type',
-                'ownership_authentication_issued_date',
-                'name_stated_on_ownership_authentication',
-                'previous_service',
-                'type_of_construction',
-                'ground_floor_number',
-            ),
-        );
-        return new PlanConsentResource($planConsent);
+        // $planConsent = Plan_Consent::findOrFail($id);
+        // $planConsent->update(
+        //     $request->only(
+        //         'owner_full_name',
+        //         'city',
+        //         'phone_number',
+        //         'mobile_number',
+        //         'sub_city',
+        //         'new_woreda',
+        //         'street_address',
+        //         'house_number',
+        //         'ownership_authentication_number',
+        //         'ownership_authentication_type',
+        //         'ownership_authentication_issued_date',
+        //         'name_stated_on_ownership_authentication',
+        //         'previous_service',
+        //         'type_of_construction',
+        //         'ground_floor_number',
+        //     ),
+        // );
+        // return new PlanConsentResource($planConsent);
     }
 }

@@ -32,10 +32,8 @@
     28 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
     29 => 'App\\Providers\\AppServiceProvider',
     30 => 'App\\Providers\\AuthServiceProvider',
-    31 => 'App\\Providers\\BroadcastServiceProvider',
-    32 => 'App\\Providers\\EventServiceProvider',
-    33 => 'App\\Providers\\RouteServiceProvider',
-    34 => 'Laravel\\Passport\\PassportServiceProvider',
+    31 => 'App\\Providers\\RouteServiceProvider',
+    32 => 'Laravel\\Passport\\PassportServiceProvider',
   ),
   'eager' => 
   array (
@@ -56,10 +54,8 @@
     14 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
     15 => 'App\\Providers\\AppServiceProvider',
     16 => 'App\\Providers\\AuthServiceProvider',
-    17 => 'App\\Providers\\BroadcastServiceProvider',
-    18 => 'App\\Providers\\EventServiceProvider',
-    19 => 'App\\Providers\\RouteServiceProvider',
-    20 => 'Laravel\\Passport\\PassportServiceProvider',
+    17 => 'App\\Providers\\RouteServiceProvider',
+    18 => 'Laravel\\Passport\\PassportServiceProvider',
   ),
   'deferred' => 
   array (
