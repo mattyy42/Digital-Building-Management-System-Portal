@@ -23,13 +23,12 @@ class ComplainController extends Controller
     public function index()
     {
         //
-        $complains=Complain::all();
+        $complains = Complain::all();
         return response()->json([
-            'complains'=>$complains
+            'complains' => $complains
         ]);
-
     }
-  
+
 
     /**
      * Show the form for creating a new resource.
@@ -39,7 +38,7 @@ class ComplainController extends Controller
     public function create()
     {
         //
-        
+
     }
 
     /**
@@ -48,53 +47,51 @@ class ComplainController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request,$id)
+    public function store(Request $request, $id)
     {
         //when the person views his application in tabular form 
         //complain should be button  where there route passes
         //$id is application id 
         $request->validate([
-            'complain'=>'required',
+            'complain' => 'required',
         ]);
-        $applicant_id=Application::where('id',$id)->pluck('applicant_id')->first();
+        $applicant_id = Application::where('id', $id)->pluck('applicant_id')->first();
         //$buildingOfficer_id=Application::where('id',$id)->pluck('buildingOfficer_id')->first();
-        $complain_check=Complain::where('application_id','=',$id)->first();
-        if ($complain_check === null) 
-        {
-            $bureau_type=Application::where('id',$id)->pluck('bureau')->first();
-            $board_of_appliance_id=Role::where('bureau',$bureau_type)->pluck('user_id')->first();
-            
-            $complain=Complain::create([
-                'applicant_id'=>$applicant_id,
-                'application_id'=>$id,
-                'BOA_id'=>$board_of_appliance_id,
-                'complain'=>$request['complain'],
-               
+        $complain_check = Complain::where('application_id', '=', $id)->first();
+        if ($complain_check === null) {
+            $bureau_type = Application::where('id', $id)->pluck('bureau')->first();
+            $board_of_appliance_id = Role::where('bureau', $bureau_type)->pluck('user_id')->first();
+
+            $complain = Complain::create([
+                'applicant_id' => $applicant_id,
+                'application_id' => $id,
+                'BOA_id' => $board_of_appliance_id,
+                'complain' => $request['complain'],
+
             ]);
-        }
-        else {
-            return response()->json([ 
-                
+        } else {
+            return response()->json([
+
                 'complain' => 'Complain already Submitted'
             ]);
         }
-        
-        return new ComplainResource($complain);       
+
+        return new ComplainResource($complain);
     }
 
     /**
      * Display the specified resource.
      *
      * @param  \App\complain  $complain
-       * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
         //
-        $complains =Complain::where('id','=',$id)->get();
-         return response()->json([ 
-             'complains' => $complains,
-         ]);
+        $complains = Complain::where('id', '=', $id)->get();
+        return response()->json([
+            'complains' => $complains,
+        ]);
     }
 
     /**
@@ -106,16 +103,16 @@ class ComplainController extends Controller
     public function edit($id)
     {
         //
-        $complains =Complain::where('id','=',$id)->get();
-        $applicationid=$complains->pluck('application_id');
-        $application=Application::where('id',$applicationid)->get();
-        $ConsultingFirm=ConsultingFirm::where('application_id',$applicationid)->get();
-        $constructionType=constructionType::where('application_id',$applicationid)->get();
-        $constructionLocation=constructionLocation::where('application_id',$applicationid)->get();
+        $complains = Complain::where('id', '=', $id)->get();
+        $applicationid = $complains->pluck('application_id');
+        $application = Application::where('id', $applicationid)->get();
+        $ConsultingFirm = ConsultingFirm::where('application_id', $applicationid)->get();
+        $constructionType = constructionType::where('application_id', $applicationid)->get();
+        $constructionLocation = constructionLocation::where('application_id', $applicationid)->get();
         //here it should display all the nessary informations above on one page with non editable input
         //add editable Comments text in put to reason
         // then accept and reject button which modifes the status of complain 0 is pendig 1 is accepted and 2 is rejected
-        
+
     }
 
     /**
@@ -140,23 +137,23 @@ class ComplainController extends Controller
     {
         //
     }
-    public function DecidedMyComplain(Request $request,$id)
+    public function DecidedMyComplain(Request $request, $id)
     {
         //
-        $complains =Complain::where('id','=',$id)->where('status','0')->get();
+        $complains = Complain::where('id', '=', $id)->where('status', '0')->get();
         $request->validate([
-            'BOAcomment'=>'required',
+            'BOAcomment' => 'required',
         ]);
 
-       // $BOAcomment=request['BOAcomment'];
+        // $BOAcomment=request['BOAcomment'];
         return ComplainResource::collection($complains);
-// Front end concept 
+        // Front end concept 
     }
     public function deleteComplain()
     {
-        $id=auth()->user()->id;
+        $id = auth()->user()->id;
         //it is deleting the application 
-        $complains = Complain::where('applicant_id',$id)->where('status','0')->delete();
+        $complains = Complain::where('applicant_id', $id)->where('status', '0')->delete();
         // return redirect('/applicant/viewApplication/'.auth()->user()->id);
         $deleted = 'your application id' . $id . 'successfully deleted ';
         return response()->json([
@@ -165,17 +162,31 @@ class ComplainController extends Controller
 
         ]);
     }
-    public function showComplain(){
-        $id=auth()->user()->id;
-        $complains =Complain::where('applicant_id','=',$id)->get();
+    public function showComplain()
+    {
+        $id = auth()->user()->id;
+        $complains = Complain::where('applicant_id', '=', $id)->get();
         return ComplainResource::collection($complains);
+    }
+    public function complainDelete($complain_id)
+    {
+        $id = auth()->user()->id;
+        $complain = Complain::where('id', '=', $complain_id)->get()->first();
+        if ($id == $complain->applicant_id ) {
+            $complain->delete();
+            return response()->json([
+                'success'=>"successfully deleted"
+            ]);
+        }
+        return response()->json([
+            'success'=>"successfully deleted"
+        ]);
     }
     public function ViewMyComplain()
     {
         //
-        $id=auth()->user()->id;
-        $complains =Complain::where('applicant_id','=',$id)->get();
+        $id = auth()->user()->id;
+        $complains = Complain::where('applicant_id', '=', $id)->get();
         return ComplainResource::collection($complains);
     }
-  
 }

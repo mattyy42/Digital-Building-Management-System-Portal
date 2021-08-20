@@ -41,11 +41,11 @@ class PlanConsentController extends Controller
     public function store(PlanConsentRequest $request)
     {
         //
-        
+
         $id = auth()->user()->id;
-        $nof = $request['ground_floor_number']; 
+        $nof = $request['ground_floor_number'];
         $number_of_floors = (int)$nof;
-        if($number_of_floors>=7){
+        if ($number_of_floors >= 7) {
             $bureau_for_application = $request['city'];
             $Building_officer_selector = Role::where('bureau', '=', $bureau_for_application)
                 ->where('name', '=', 'BO')->min('active_applications');
@@ -75,7 +75,7 @@ class PlanConsentController extends Controller
                 'bureau' => $bureau_for_application,
                 'buildingOfficer_id' => $uid,
             ]);
-             
+
             $updater = Role::where('user_id', '=', $uid)->first();
             $updater->active_applications = $updater->active_applications + 1;
             $updater->save();
@@ -83,8 +83,7 @@ class PlanConsentController extends Controller
             $updater->active_applications = $updater->active_applications + 1;
             $updater->save();
             return new PlanConsentResource($plan_Consent);
-        }
-        else{
+        } else {
             $bureau_for_application = $request['sub_city'];
             $Building_officer_selector = Role::where('bureau', '=', $bureau_for_application)
                 ->where('name', '=', 'BO')->min('active_applications');
@@ -105,7 +104,7 @@ class PlanConsentController extends Controller
                 'name_stated_on_ownership_authentication' => $request['name_stated_on_ownership_authentication'],
                 'previous_service' => $request['previous_service'],
                 'type_of_construction' => $request['type_of_construction'],
-                 'application_id' => $request['application_id'],
+                'application_id' => $request['application_id'],
                 'application_issued_date' => $request['application_issued_date'],
                 'ground_floor_number' => $request['ground_floor_number'],
                 'owner_full_name' => $request['owner_full_name'],
@@ -186,21 +185,29 @@ class PlanConsentController extends Controller
         $planConsent = Plan_Consent::where('buildingOfficer_id', $id)->get();
         return PlanConsentResource::collection($planConsent);
     }
-    public function acceptPlanConsent($id){
-        $uid=auth()->user()->id;
-        $planConsent=Plan_Consent::findOrFail($id);
-        if($planConsent->status == 0){
-            $planConsent->status=1;
+    public function acceptPlanConsent($id)
+    {
+        $uid = auth()->user()->id;
+        $planConsent = Plan_Consent::findOrFail($id);
+        if ($planConsent->status == 0) {
+            $planConsent->status = 1;
+        }
+        if ($planConsent->status == 2) {
+            $planConsent->status = 1;
         }
         $planConsent->save();
         $planConsents = Plan_Consent::where('buildingOfficer_id', $uid)->get();
         return PlanConsentResource::collection($planConsents);
     }
-    public function rejectPlanConsent($id){
-        $uid=auth()->user()->id;
-        $planConsent=Plan_Consent::findOrFail($id);
-        if($planConsent->status == 1){
-            $planConsent->status=0;
+    public function rejectPlanConsent($id)
+    {
+        $uid = auth()->user()->id;
+        $planConsent = Plan_Consent::findOrFail($id);
+        if ($planConsent->status == 1) {
+            $planConsent->status = 2;
+        }
+        if ($planConsent->status == 0) {
+            $planConsent->status = 2;
         }
         $planConsent->save();
         $planConsents = Plan_Consent::where('buildingOfficer_id', $uid)->get();

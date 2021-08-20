@@ -72,6 +72,7 @@ Route::middleware('auth:api')->group(function () {
 
     Route::post('/applicant/submitComplain/{id}', 'api\ComplainController@store');
     Route::get('/applicant/viewComplain','api\ComplainController@showComplain');
+    Route::get('/applicant/deleteComplain/{id}','api\ComplainController@complainDelete');
     //plan Consent
     Route::post('/applicant/submitpc','api\PlanConsentController@store');
     Route::put('/applicant/updatepc/{id}','api\PlanConsentController@updatePlanConsent');
