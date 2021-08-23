@@ -9,7 +9,8 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Http\Resources\RoleResource;
 use App\Http\Controllers\Controller;
-
+use App\Mail\WelcomeMail;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
@@ -62,7 +63,12 @@ class AdminController extends Controller
             'bureau' => $request['bureau'],
             // 'building_officer_id'=>$buildingOfficer->id,
         ]);
-
+        $email_data = array(
+            'first_name' => $request['first_name'],
+            'email' => $request['email'],
+            'password'=>$request['password']
+        );
+        Mail::to($buildingOfficer->email)->send(new WelcomeMail($email_data));
         // return redirect(route('buildingOfficers'));
         return new UserResource($buildingOfficer);
     }
@@ -128,7 +134,12 @@ class AdminController extends Controller
             'user_id' => $board['id'],
             'bureau' => $request['bureau'],
         ]);
-
+        $email_data = array(
+            'first_name' => $request['first_name'],
+            'email' => $request['email'],
+            'password'=>$request['password']
+        );
+        Mail::to($request['email'])->send(new WelcomeMail($email_data));
         return new UserResource($board);
     }
     public function deleteBoard($id)

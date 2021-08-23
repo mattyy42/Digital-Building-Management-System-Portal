@@ -41,6 +41,7 @@ class ApplicantController extends Controller
             'consultingFirmLevel' => 'required',
             'consultingFirmPhone' => 'required',
             'consultingFirmAddress' => 'required',
+            'revitFile'=>'required',
         ]);
         $id = auth()->user()->id;
 
@@ -56,12 +57,21 @@ class ApplicantController extends Controller
             $user_id = Role::where('active_applications', '=', $Building_officer_selector)->where('name', '=', 'BO')->first();
             // return $user_id;
             $uid = $user_id->user_id;
-
-            //$buildingOfficer = $Building_officer_selector->user_id;
+            
+            if($request->input("revitFile")){
+                $filenameWithExt = $request->file("revitFile")->getClientOriginalName();
+                $filename= pathinfo($filenameWithExt,PATHINFO_FILENAME);
+                $extension = $request->file("revitFile")->getClientOriginalExtension();
+                $fileNameToStore = $filename."_".time().".".$extension;
+                $path= $request->file("revitFile")->storeAs("public/revit",$fileNameToStore);
+               
+            };
+            dd($uid);
             $application = Application::create([
                 'applicant_id' => $id,
                 'bureau' => $bureau_for_application,
                 'buildingOfficer_id' => $uid,
+                'revit_file'=>$path,
             ]);
             $consultingFirm = ConsultingFirm::create([
                 'name' => $request['consultingFirmName'],

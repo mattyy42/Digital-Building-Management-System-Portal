@@ -1,5 +1,6 @@
 <?php
 
+use App\Mail\WelcomeMail;
 use Illuminate\Foundation\Auth\User;
 
 /*
@@ -13,9 +14,10 @@ use Illuminate\Foundation\Auth\User;
 |
 */
 
-// Route::get('/', function () {
-//     return view('index');
-// });
+Route::get('/', function () {
+  $user=User::findOrFail(1);
+    return new WelcomeMail($user);
+});
 
 // Auth::routes();
 
