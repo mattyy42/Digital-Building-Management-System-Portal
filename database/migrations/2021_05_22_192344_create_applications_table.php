@@ -15,9 +15,9 @@ class CreateApplicationsTable extends Migration
     {
         Schema::create('applications', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('application_stutus')->nullable();
+            $table->string('application_stutus')->default(0);
             $table->unsignedBigInteger('applicant_id');
-
+            $table->string('revit_file');
             $table->unsignedBigInteger('buildingOfficer_id')->nullable();
             $table->foreign('applicant_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('buildingOfficer_id')->references('id')->on('users')->onDelete('cascade');

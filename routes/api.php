@@ -80,13 +80,14 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/bo/pc','api\PlanConsentController@bOViewPlanConsent');
     Route::get('/bo/acceptPc/{id}','api\PlanConsentController@acceptPlanConsent');
     Route::get('/bo/rejectPc/{id}','api\PlanConsentController@rejectPlanConsent');
+
+    Route::get('/boa/viewMyComplain','api\ComplainController@BoaViewComplain');
 });
 //complain
 
 //Route::get('/boa/viewcomplain', 'api\ComplainController@index');
-Route::get('/boa/viewcomplain/{id}', 'api\ComplainController@show');
+Route::get('/boa/viewcomplain/', 'api\ComplainController@show');
 //Route::get('/boa/editcomplain/{id}', 'api\ComplainController@edit');
-Route::get('/boa/viewMyComplain','api\ComplainController@viewMyComplain')->middleware('auth:api');
 Route::get('/boa/editcomplain/{id}','api\ComplainController@edit');
 Route::get('/boa/deletecomplain','api\ComplainController@deleteComplain')->middleware('auth:api');
 

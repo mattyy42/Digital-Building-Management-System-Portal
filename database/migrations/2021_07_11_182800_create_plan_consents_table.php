@@ -31,8 +31,8 @@ class CreatePlanConsentsTable extends Migration
             $table->string('previous_service');// residentioal shop bearaue hotel appartament store factory health schools other
             $table->string('type_of_construction');// new renewal change of service other
             $table->string('method_of_construction')->nullable(); //built once one by one 
-            $table->unsignedBigInteger('application_id')->nullable();
-            $table->foreign('application_id')->references('id')->on('applications')->onDelete('cascade');
+            // $table->unsignedBigInteger('application_id')->nullable();
+            // $table->foreign('application_id')->references('id')->on('applications')->onDelete('cascade');
             $table->date('application_issued_date')->nullable();
             //$table->foreign('application_issued_date')->references('id')->on('applications')->onDelete('cascade');
             //$table->unsignedBigInteger('ground_floor_number')->nullable();

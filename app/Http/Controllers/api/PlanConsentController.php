@@ -64,8 +64,6 @@ class PlanConsentController extends Controller
                 'name_stated_on_ownership_authentication' => $request['name_stated_on_ownership_authentication'],
                 'previous_service' => $request['previous_service'],
                 'type_of_construction' => $request['type_of_construction'],
-                'application_id' => $request['application_id'],
-                'application_issued_date' => $request['application_issued_date'],
                 'ground_floor_number' => $request['ground_floor_number'],
                 'owner_full_name' => $request['owner_full_name'],
                 'reperesentative_full_name' => $request['reperesentative_full_name'],

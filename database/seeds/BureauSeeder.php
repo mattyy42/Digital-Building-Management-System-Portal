@@ -53,6 +53,10 @@ class BureauSeeder extends Seeder
                 'Bureau' => 'YBPB',
                 'subcity' => 'Yeka',
             ],
+            [
+                'Bureau' => "AABPB",
+                'subcity' => "Main",
+            ]
         ]);
     }
 }

@@ -75,7 +75,13 @@ class ComplainController extends Controller
                 'complain' => 'Complain already Submitted'
             ]);
         }
-
+        //Add Active application
+        $updater = Role::where('user_id', '=', $applicant_id)->first();
+        $updater->active_applications = $updater->active_applications + 1;
+        $updater->save();
+        $updater = Role::where('user_id', '=', $board_of_appliance_id)->first();
+        $updater->active_applications = $updater->active_applications + 1;
+        $updater->save();
         return new ComplainResource($complain);
     }
 
@@ -87,7 +93,7 @@ class ComplainController extends Controller
      */
     public function show($id)
     {
-        //
+        
         $complains = Complain::where('id', '=', $id)->get();
         return response()->json([
             'complains' => $complains,
@@ -187,6 +193,11 @@ class ComplainController extends Controller
         //
         $id = auth()->user()->id;
         $complains = Complain::where('applicant_id', '=', $id)->get();
+        return ComplainResource::collection($complains);
+    }
+    public function BoaViewComplain(){
+        $id=auth()->user()->id;
+        $complains=Complain::where('BOA_id','=',$id)->get();
         return ComplainResource::collection($complains);
     }
 }
