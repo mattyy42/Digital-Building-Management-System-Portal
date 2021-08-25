@@ -9,6 +9,9 @@ use App\Plan_Consent;
 use App\Role;
 use Illuminate\Http\Request;
 use App\Http\Resources\PlanConsentResource;
+use App\Mail\PlaningConsentAccept;
+use App\Mail\PlaningConsentReject;
+use Illuminate\Support\Facades\Mail;
 
 class PlanConsentController extends Controller
 {
@@ -48,8 +51,8 @@ class PlanConsentController extends Controller
         if ($number_of_floors >= 7) {
             $bureau_for_application = $request['city'];
             $Building_officer_selector = Role::where('bureau', '=', $bureau_for_application)
-                ->where('name', '=', 'BO')->min('active_applications');
-            $user_id = Role::where('active_applications', '=', $Building_officer_selector)->where('name', '=', 'BO')->first();
+                ->where('name', '=', 'BO')->min('planing_consent');
+            $user_id = Role::where('planing_consent', '=', $Building_officer_selector)->where('name', '=', 'BO')->first();
             $uid = $user_id->user_id;
             $plan_Consent = Plan_Consent::create([
                 'applicant_id' => $id,
@@ -70,23 +73,22 @@ class PlanConsentController extends Controller
                 'phone_number' => $request['phone_number'],
                 'mobile_number' => $request['mobile_number'],
                 'TIN_number' => $request['TIN_number'],
-                'bureau' => $bureau_for_application,
                 'buildingOfficer_id' => $uid,
             ]);
 
             $updater = Role::where('user_id', '=', $uid)->first();
-            $updater->active_applications = $updater->active_applications + 1;
+            $updater->planing_consent = $updater->planing_consent + 1;
             $updater->save();
             $updater = Role::where('user_id', '=', $id)->first();
-            $updater->active_applications = $updater->active_applications + 1;
+            $updater->planing_consent = $updater->planing_consent + 1;
             $updater->save();
             return new PlanConsentResource($plan_Consent);
         } else {
             $bureau_for_application = $request['sub_city'];
             $Building_officer_selector = Role::where('bureau', '=', $bureau_for_application)
-                ->where('name', '=', 'BO')->min('active_applications');
+                ->where('name', '=', 'BO')->min('planing_consent');
             // return $bureau_for_application;
-            $user_id = Role::where('active_applications', '=', $Building_officer_selector)->where('name', '=', 'BO')->first();
+            $user_id = Role::where('planing_consent', '=', $Building_officer_selector)->where('name', '=', 'BO')->first();
             // return $user_id;
             $uid = $user_id->user_id;
             $plan_Consent = Plan_Consent::create([
@@ -112,14 +114,12 @@ class PlanConsentController extends Controller
                 'TIN_number' => $request['TIN_number'],
                 'bureau' => $bureau_for_application,
                 'buildingOfficer_id' => $uid,
-
-
             ]);
             $updater = Role::where('user_id', '=', $uid)->first();
-            $updater->active_applications = $updater->active_applications + 1;
+            $updater->planing_consent = $updater->planing_consent + 1;
             $updater->save();
             $updater = Role::where('user_id', '=', $id)->first();
-            $updater->active_applications = $updater->active_applications + 1;
+            $updater->planing_consent = $updater->planing_consent + 1;
             $updater->save();
             return new PlanConsentResource($plan_Consent);
         }
@@ -194,6 +194,8 @@ class PlanConsentController extends Controller
             $planConsent->status = 1;
         }
         $planConsent->save();
+        $user=$planConsent->applicant;
+        Mail::to($planConsent->applicant->email)->send(new PlaningConsentAccept($user));
         $planConsents = Plan_Consent::where('buildingOfficer_id', $uid)->get();
         return PlanConsentResource::collection($planConsents);
     }
@@ -208,8 +210,18 @@ class PlanConsentController extends Controller
             $planConsent->status = 2;
         }
         $planConsent->save();
+        $user=$planConsent->applicant;
+        Mail::to($planConsent->applicant->email)->send(new PlaningConsentReject($user));
         $planConsents = Plan_Consent::where('buildingOfficer_id', $uid)->get();
         return PlanConsentResource::collection($planConsents);
+    }
+    public function commentAdd(Request $request,$id){
+        $planingConsent=Plan_Consent::findOrFail($id);
+        $planingConsent->comment_BO=$request['comment'];
+        $planingConsent->save();
+        return response()->json([
+            'success'=>'comment is added successfully',
+        ]);
     }
     public function updatePlanConsent(PlanConsentRequest $request, $id)
     {

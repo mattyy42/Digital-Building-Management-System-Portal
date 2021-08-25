@@ -4,6 +4,8 @@ namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
+use App\Mail\WelcomeMailApplicant;
+use Illuminate\Support\Facades\Mail;
 use App\User;
 use App\Role;
 use Illuminate\Support\Facades\Hash;
@@ -33,7 +35,12 @@ class AutheticationController extends Controller
             'name' => 'applicant',
             'user_id' => $createUser['id'],
         ]);
-
+        $email_data = array(
+            'first_name' => $data['first_name'],
+            'email' => $data['email'],
+           
+        );
+        //Mail::to($data['email'])->send(new WelcomeMailApplicant($email_data));
         return response()->json(['sucess' => true, 'msg' => 'Registration is successfull'], 200);
     }
     public function login(Request $request)

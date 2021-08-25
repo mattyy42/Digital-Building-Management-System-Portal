@@ -16,10 +16,12 @@ class PlanConsentResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'bureau' => $this->bureau,
+            'sub_city' => $this->sub_city,
             'applicant' => new UserResource($this->applicant),
             'buildingOfficer' => new UserResource($this->buildingOfficer),
             'status' => $this->status,
+            'phone_number'=> $this->phone_number,
+            'comment'=>$this->comment_BO,
         ];
     }
 }

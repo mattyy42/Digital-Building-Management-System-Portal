@@ -14,11 +14,13 @@ use Illuminate\Foundation\Auth\User;
 |
 */
 
-Route::get('/', function () {
-  $user=User::findOrFail(1);
-    return new WelcomeMail($user);
-});
-
+// Route::get('/', function () {
+//   $user=User::findOrFail(1);
+//     return new WelcomeMail($user);
+// });
+// Route::get('/landing',function(){
+//   return view('index') ;
+// });
 // Auth::routes();
 
 //Route::get('/home', 'HomeController@index')->name('home');

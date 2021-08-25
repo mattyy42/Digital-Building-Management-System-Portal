@@ -17,13 +17,14 @@ class CreateRolesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->unsignedBigInteger('user_id');
-           // $table->unsignedBigInteger('bureau_id')->nullable();
-           // $table->foreign('bureau_id')->references('bureau')->on('bureau')->onDelete('cascade');
+            // $table->unsignedBigInteger('bureau_id')->nullable();
+            // $table->foreign('bureau_id')->references('bureau')->on('bureau')->onDelete('cascade');
             $table->string('bureau')->nullable();
 
             // add attribute to count active application of bo should be nullable 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->integer('active_applications')->default(0);
+            $table->integer('planing_consent')->default(0);
             $table->timestamps();
         });
     }

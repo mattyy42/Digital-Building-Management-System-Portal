@@ -33,7 +33,7 @@ Route::middleware('auth:api')->group(function () {
    
 
     //buldingofficer
-    Route::get('/buldingofficer/viewApplication', 'api\ApplicantController@viewMyApplication');
+    
 });
 
 Route::patch('/user/profileChange/{id}', 'api\AutheticationController@updateProfile');
@@ -77,11 +77,19 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/applicant/submitpc','api\PlanConsentController@store');
     Route::put('/applicant/updatepc/{id}','api\PlanConsentController@updatePlanConsent');
     Route::get('/applicant/viewpc','api\PlanConsentController@applicantViewPlanConsent');
+    
     Route::get('/bo/pc','api\PlanConsentController@bOViewPlanConsent');
     Route::get('/bo/acceptPc/{id}','api\PlanConsentController@acceptPlanConsent');
     Route::get('/bo/rejectPc/{id}','api\PlanConsentController@rejectPlanConsent');
+    Route::post('/bo/addComment/{id}','api\PlanConsentController@commentAdd');
+    //Building officer application
+    Route::get('/buildingofficer/viewApplication', 'api\ApplicantController@viewMyApplication');
+    Route::get('/buildingOfficer/acceptApp/{id}','api\ApplicantController@acceptApplication');
+    Route::get('/buildingOfficer/rejectApp/{id}','api\ApplicantController@rejectApplication');
+    Route::post('/buildingOfficer/addComment/{id}','api\ApplicantController@commentApplication');
 
     Route::get('/boa/viewMyComplain','api\ComplainController@BoaViewComplain');
+    
 });
 //complain
 

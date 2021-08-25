@@ -15,15 +15,15 @@ class CreateApplicationsTable extends Migration
     {
         Schema::create('applications', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('application_stutus')->default(0);
+            $table->integer('application_stutus')->default(0);
             $table->unsignedBigInteger('applicant_id');
             $table->string('revit_file');
             $table->unsignedBigInteger('buildingOfficer_id')->nullable();
             $table->foreign('applicant_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('buildingOfficer_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('bureau');
-            // $table->unsignedBigInteger('bureau_id');
-            // $table->foreign('bureau_id')->references('id')->on('bureau')->onDelete('cascade');
+            $table->text('comment_BO')->nullable();
+            
             $table->timestamps();
         });
     }

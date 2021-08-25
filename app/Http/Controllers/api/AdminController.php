@@ -44,7 +44,7 @@ class AdminController extends Controller
         $data = $request->validate([
             'first_name' => 'required|max:255|string',
             'last_name' => 'required',
-            'phone_number' => 'required|max:13',
+            'phone_number' => 'required|min:10',
             'email' => 'required|unique:users|max:255|email',
             'password' => 'required|min:6',
             'role' => 'required',
@@ -61,15 +61,14 @@ class AdminController extends Controller
             'name' => $request['role'],
             'user_id' => $buildingOfficer['id'],
             'bureau' => $request['bureau'],
-            // 'building_officer_id'=>$buildingOfficer->id,
         ]);
         $email_data = array(
             'first_name' => $request['first_name'],
             'email' => $request['email'],
             'password'=>$request['password']
         );
-        Mail::to($buildingOfficer->email)->send(new WelcomeMail($email_data));
-        // return redirect(route('buildingOfficers'));
+       // Mail::to($buildingOfficer->email)->send(new WelcomeMail($email_data));
+       
         return new UserResource($buildingOfficer);
     }
     public function deleteOfficer($id)
@@ -139,7 +138,7 @@ class AdminController extends Controller
             'email' => $request['email'],
             'password'=>$request['password']
         );
-        Mail::to($request['email'])->send(new WelcomeMail($email_data));
+        //Mail::to($request['email'])->send(new WelcomeMail($email_data));
         return new UserResource($board);
     }
     public function deleteBoard($id)

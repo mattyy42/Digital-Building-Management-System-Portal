@@ -23,19 +23,16 @@ class CreatePlanConsentsTable extends Migration
             $table->string('street_address');
             $table->string('house_number');
             $table->string('ownership_authentication_number');
-            $table->string('ownership_authentication_type');//either existing or lease 
+            $table->string('ownership_authentication_type'); //either existing or lease 
             $table->date('ownership_authentication_issued_date');
             $table->string('name_stated_on_ownership_authentication');
 
 
-            $table->string('previous_service');// residentioal shop bearaue hotel appartament store factory health schools other
-            $table->string('type_of_construction');// new renewal change of service other
+            $table->string('previous_service'); // residentioal shop bearaue hotel appartament store factory health schools other
+            $table->string('type_of_construction'); // new renewal change of service other
             $table->string('method_of_construction')->nullable(); //built once one by one 
-            // $table->unsignedBigInteger('application_id')->nullable();
-            // $table->foreign('application_id')->references('id')->on('applications')->onDelete('cascade');
-            $table->date('application_issued_date')->nullable();
-            //$table->foreign('application_issued_date')->references('id')->on('applications')->onDelete('cascade');
-            //$table->unsignedBigInteger('ground_floor_number')->nullable();
+
+
             $table->string('ground_floor_number');
 
             $table->string('owner_full_name');
@@ -44,11 +41,12 @@ class CreatePlanConsentsTable extends Migration
             $table->string('mobile_number');
             $table->string('TIN_number')->nullable();
 
-            
+
             $table->unsignedBigInteger('buildingOfficer_id')->nullable();
             $table->foreign('buildingOfficer_id')->references('id')->on('users')->onDelete('cascade');
-            $table->string('bureau');
-            $table->integer('status')->default(0);//0 is pending 1 accepted 2 tejected 
+
+            $table->text('comment_BO')->nullable();
+            $table->integer('status')->default(0); //0 is pending 1 accepted 2 tejected 
 
             $table->timestamps();
         });
@@ -64,4 +62,3 @@ class CreatePlanConsentsTable extends Migration
         Schema::dropIfExists('plan__consents');
     }
 }
-    

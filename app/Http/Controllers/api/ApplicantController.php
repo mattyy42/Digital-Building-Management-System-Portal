@@ -18,12 +18,17 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ApplicationResource;
 use App\Http\Resources\ComplainResource;
+use App\Mail\ApplicationAccept;
+use App\Mail\ApplicationReject;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Mail;
 
 class ApplicantController extends Controller
 {
     public function storeApplication(Request $request)
     {
+        
+        $path = "";
         $request->validate([
             'city' => 'required|max:255',
             'sub_city' => 'required',
@@ -41,15 +46,14 @@ class ApplicantController extends Controller
             'consultingFirmLevel' => 'required',
             'consultingFirmPhone' => 'required',
             'consultingFirmAddress' => 'required',
-            'revitFile'=>'required',
+            'revitFile' => 'required',
         ]);
         $id = auth()->user()->id;
 
         //one part of the scheduler to send it the appropurate office 
         $nof = $request['floorNumber'];
         $number_of_floors = (int)$nof;
-        if ($number_of_floors >= 7)
-         {
+        if ($number_of_floors >= 7) {
             $bureau_for_application = $request['city'];
             //selecting building officers from the chosen buraue
             $Building_officer_selector = Role::where('bureau', '=', $bureau_for_application)
@@ -57,20 +61,19 @@ class ApplicantController extends Controller
             $user_id = Role::where('active_applications', '=', $Building_officer_selector)->where('name', '=', 'BO')->first();
             // return $user_id;
             $uid = $user_id->user_id;
-            if($request->file("revitFile")){
+            if ($request->file("revitFile")) {
+              
                 $filenameWithExt = $request->file("revitFile")->getClientOriginalName();
-                $filename= pathinfo($filenameWithExt,PATHINFO_FILENAME);
+                $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
                 $extension = $request->file("revitFile")->getClientOriginalExtension();
-                $fileNameToStore = $filename."_".time().".".$extension;
-                $path= $request->file("revitFile")->storeAs("public/revit",$fileNameToStore);
-               
+                $fileNameToStore = $filename . "_" . time() . "." . $extension;
+                $path = $request->file("revitFile")->storeAs("public/revit", $fileNameToStore);
             };
-            
             $application = Application::create([
                 'applicant_id' => $id,
                 'bureau' => $bureau_for_application,
                 'buildingOfficer_id' => $uid,
-                'revit_file'=>$path,
+                'revit_file' => $path,
             ]);
             $consultingFirm = ConsultingFirm::create([
                 'name' => $request['consultingFirmName'],
@@ -116,12 +119,18 @@ class ApplicantController extends Controller
             $user_id = Role::where('active_applications', '=', $Building_officer_selector)->where('name', '=', 'BO')->first();
 
             $uid = $user_id->user_id;
-            // return $bureau_for_application;
-            //$buildingOfficer = $Building_officer_selector->user_id;
+            if ($request->file("revitFile")) {
+                $filenameWithExt = $request->file("revitFile")->getClientOriginalName();
+                $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+                $extension = $request->file("revitFile")->getClientOriginalExtension();
+                $fileNameToStore = $filename . "_" . time() . "." . $extension;
+                $path = $request->file("revitFile")->storeAs("public/revit", $fileNameToStore);
+            };
             $application = Application::create([
                 'applicant_id' => $id,
                 'bureau' => $bureau_for_application,
                 'buildingOfficer_id' => $uid,
+                'revit_file' => $path,
             ]);
             $consultingFirm = ConsultingFirm::create([
                 'name' => $request['consultingFirmName'],
@@ -178,8 +187,8 @@ class ApplicantController extends Controller
             return new ApplicationResource($application);
         }
     }
-    
-    
+
+
 
     public function viewApplication()
     {
@@ -203,6 +212,46 @@ class ApplicantController extends Controller
         //new Route and functions will be defined for details
 
 
+    }
+    public function acceptApplication($id)
+    {
+        $uid = auth()->user()->id;
+        $application = Application::findOrFail($id);
+        if ($application->application_stutus == 0) {
+            $application->application_stutus = 1;
+        }
+        if ($application->application_stutus == 2) {
+            $application->application_stutus = 1;
+        }
+        $application->save();
+        $user=$application->applicant;
+        Mail::to($application->applicant->email)->send(new ApplicationAccept($user));
+        $planConsents = Application::where('buildingOfficer_id', $uid)->get();
+        return ApplicationResource::collection($planConsents);
+    }
+    public function rejectApplication($id)
+    {
+        $uid = auth()->user()->id;
+        $application = Application::findOrFail($id);
+        if ($application->application_stutus == 1) {
+            $application->application_stutus = 2;
+        }
+        if ($application->application_stutus == 0) {
+            $application->application_stutus = 2;
+        }
+        $application->save();
+        $user=$application->applicant;
+        Mail::to($application->applicant->email)->send(new ApplicationReject($user));
+        $planConsents = Application::where('buildingOfficer_id', $uid)->get();
+        return ApplicationResource::collection($planConsents);
+    }
+    public function commentApplication(Request $request,$id){
+        $application=Application::findOrFail($id);
+        $application->comment_BO=$request['comment'];
+        $application->save();
+        return response()->json([
+            'success'=>'comment is added successfully',
+        ]);
     }
     public function deleteApplication()
     {
@@ -266,5 +315,4 @@ class ApplicantController extends Controller
             'Success' => 'application successfully updated'
         ]);
     }
-    
 }
