@@ -36,7 +36,7 @@ Route::middleware('auth:api')->group(function () {
     
 });
 
-Route::patch('/user/profileChange/{id}', 'api\AutheticationController@updateProfile');
+
 //admin routes   use api/
 Route::get('admin/getUserById/{id}','api\AdminController@showUser');
 
@@ -65,6 +65,9 @@ Route::get('/logout', 'api\AutheticationController@logout');
 
 //application
 Route::middleware('auth:api')->group(function () {
+    //profile
+    Route::put('/user/profileChange', 'api\AutheticationController@updateProfile');
+
     Route::post('/applicant/submitApplication', 'api\ApplicantController@storeApplication');
     Route::get('/applicant/viewApplication', 'api\ApplicantController@viewApplication');
     Route::get('/applicant/delete', 'api\ApplicantController@deleteApplication');
@@ -87,15 +90,19 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/buildingOfficer/acceptApp/{id}','api\ApplicantController@acceptApplication');
     Route::get('/buildingOfficer/rejectApp/{id}','api\ApplicantController@rejectApplication');
     Route::post('/buildingOfficer/addComment/{id}','api\ApplicantController@commentApplication');
+    
+    //board of applicance routes
 
     Route::get('/boa/viewMyComplain','api\ComplainController@BoaViewComplain');
-    
+    Route::get('/boa/acceptPc/{id}','api\ComplainController@acceptComplain');
+    Route::get('/boa/rejectPc/{id}','api\ComplainController@rejectComplain');
+    Route::post('/boa/addComment/{id}','api\ComplainController@commentAdd');
 });
 //complain
 
-//Route::get('/boa/viewcomplain', 'api\ComplainController@index');
-Route::get('/boa/viewcomplain/', 'api\ComplainController@show');
-//Route::get('/boa/editcomplain/{id}', 'api\ComplainController@edit');
+
+
+
 Route::get('/boa/editcomplain/{id}','api\ComplainController@edit');
 Route::get('/boa/deletecomplain','api\ComplainController@deleteComplain')->middleware('auth:api');
 

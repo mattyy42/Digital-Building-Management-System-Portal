@@ -61,17 +61,18 @@ class AutheticationController extends Controller
         }
     }
 
-    public function updateProfile($id)
+    public function updateProfile()
     {
-       // $user = auth()->user();
+        $user = auth()->user()->id;
+        // Rule::unique('users')->ignore($id)
         $this->validate(request(), [
-            'email' => ['required', 'email', 'max:255', Rule::unique('users')->ignore($id)],
+            'email' => ['required', 'email', 'max:255',],
             'first_name' => 'required',
             'last_name' => 'required',
-            'password' => 'required|min:6',
+            'password' => 'required|min:6|confirmed',
             'phone_number' => 'required|unique:users'
         ]);
-        $user=User::findOrFail($id);
+        $user=User::findOrFail($user);
         $user->first_name = request('first_name');
         $user->email = request('email');
         $user->password = bcrypt(request('password'));

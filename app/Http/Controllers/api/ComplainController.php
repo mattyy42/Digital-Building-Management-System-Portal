@@ -60,7 +60,7 @@ class ComplainController extends Controller
         $complain_check = Complain::where('application_id', '=', $id)->first();
         if ($complain_check === null) {
             $bureau_type = Application::where('id', $id)->pluck('bureau')->first();
-            $board_of_appliance_id = Role::where('bureau', $bureau_type)->pluck('user_id')->first();
+            $board_of_appliance_id = Role::where('bureau', $bureau_type)->where('name', '=', 'BA')->pluck('user_id')->first();
 
             $complain = Complain::create([
                 'applicant_id' => $applicant_id,
@@ -93,7 +93,7 @@ class ComplainController extends Controller
      */
     public function show($id)
     {
-        
+
         $complains = Complain::where('id', '=', $id)->get();
         return response()->json([
             'complains' => $complains,
@@ -178,14 +178,14 @@ class ComplainController extends Controller
     {
         $id = auth()->user()->id;
         $complain = Complain::where('id', '=', $complain_id)->get()->first();
-        if ($id == $complain->applicant_id ) {
+        if ($id == $complain->applicant_id) {
             $complain->delete();
             return response()->json([
-                'success'=>"successfully deleted"
+                'success' => "successfully deleted"
             ]);
         }
         return response()->json([
-            'success'=>"successfully deleted"
+            'success' => "successfully deleted"
         ]);
     }
     public function ViewMyComplain()
@@ -195,9 +195,50 @@ class ComplainController extends Controller
         $complains = Complain::where('applicant_id', '=', $id)->get();
         return ComplainResource::collection($complains);
     }
-    public function BoaViewComplain(){
-        $id=auth()->user()->id;
-        $complains=Complain::where('BOA_id','=',$id)->get();
+    public function BoaViewComplain()
+    {
+        $id = auth()->user()->id;
+        $complains = Complain::where('BOA_id', '=', $id)->get();
         return ComplainResource::collection($complains);
+    }
+    public function acceptComplain($id)
+    {
+        $uid = auth()->user()->id;
+        $complain = Complain::findOrFail($id);
+        if ($complain->status == 0) {
+            $complain->status = 1;
+        }
+        if ($complain->status == 2) {
+            $complain->status = 1;
+        }
+        $complain->save();
+        $user=$complain->applicant;
+        // Mail::to($complain->applicant->email)->send(new ComplainAccept($user));
+        $complain = Complain::where('BOA_id', $uid)->get();
+        return ComplainResource::collection($complain);
+    }
+    public function rejectComplain($id)
+    {
+        $uid = auth()->user()->id;
+        $complain = Complain::findOrFail($id);
+        if ($complain->status == 1) {
+            $complain->status = 2;
+        }
+        if ($complain->status == 0) {
+            $complain->status = 2;
+        }
+        $complain->save();
+        // $user=$complain->applicant;
+        // Mail::to($complain->applicant->email)->send(new ComplainReject($user));
+        $complain = Complain::where('BOA_id', $uid)->get();
+        return ComplainResource::collection($complain);
+    }
+    public function commentComplain(Request $request,$id){
+        $complain=Complain::findOrFail($id);
+        $complain->BoAcomment=$request['comment'];
+        $complain->save();
+        return response()->json([
+            'success'=>'comment is added successfully',
+        ]);
     }
 }

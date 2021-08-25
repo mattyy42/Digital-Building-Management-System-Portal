@@ -18,7 +18,8 @@ class ComplainResource extends JsonResource
             'id'=> $this->id,
             'complain'=> $this->complain,
             'applicant' => new UserResource($this->applicant),
-            'board' => new UserResource($this->board),    
+            'board' => new UserResource($this->board), 
+            'status'=>$this->status,   
         ];
         
     }
